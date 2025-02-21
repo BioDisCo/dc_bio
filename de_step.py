@@ -44,7 +44,7 @@ def custom_strategy_fn(candidate: int, population: np.ndarray, rng=None):
     parameter_count = population.shape[-1]
     print("-- population size", population.shape[0], "candidate", candidate, "--")
     # mutation, recombination = 0.7, 0.9
-    mutation, recombination = 1.0, 0.0
+    mutation, recombination = 1.0, 1.0
     
     # evolve the candidate
     trial = np.copy(population[candidate])
