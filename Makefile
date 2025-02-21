@@ -17,3 +17,6 @@ particle.pdf: particle.py
 
 de.pdf: de.py
 	python3 de.py
+
+clean:
+	rm *.pdf
