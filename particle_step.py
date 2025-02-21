@@ -2,13 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 show_particle_nr = 6
+show_iter = 1
 
 # Define a function with two parameters
 def f(x, y):
     return np.sin(np.pi*x) * np.cos(np.pi*y) + (x**2 + y**2)
 
 # Particle Swarm Optimization (PSO)
-def particle_swarm_optimization(num_particles=10, max_iter=1, w=1, c1=1.5, c2=1.5/2.5):
+def particle_swarm_optimization(num_particles=10, max_iter=show_iter, w=1, c1=1.5, c2=1.5/2.5):
     np.random.seed(42)  # For reproducibility
     particles = np.random.uniform(-2, 2, (num_particles, 2))  # Initialize particle positions
     velocities = np.zeros_like(particles)  # Initialize velocities

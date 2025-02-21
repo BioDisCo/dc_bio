@@ -1,4 +1,4 @@
-all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf
+all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf de_step.pdf
 
 hh_after.pdf: hh.py
 	python3 hh.py
@@ -20,6 +20,9 @@ particle_step.pdf: particle_step.py
 
 de.pdf: de.py
 	python3 de.py
+
+de_step.pdf: de_step.py
+	python3 de_step.py
 
 clean:
 	rm *.pdf
