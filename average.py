@@ -154,7 +154,7 @@ def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0) -> None:
     outputs = []
     for round in range(num_rounds):
         # pick a random graph
-        graph = random.sample(trees, k=1)[0]
+        graph = random.sample(graphs, k=1)[0]
         plot_graph_to_pdf(graph, f"graph_round_{round}.pdf")
         if round == 0:
             # init
