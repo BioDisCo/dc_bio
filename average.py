@@ -133,7 +133,7 @@ def execute_fun(
 
 
 def plot_trace(node_values: list, fname: str) -> None:
-    plt.figure(figsize=(5, 5))
+    plt.figure(figsize=(4, 4))
     plt.ylim(0, 1)
     plt.plot(
         range(len(node_values)),
@@ -187,7 +187,7 @@ def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0) -> None:
 if __name__ == "__main__":
     num_nodes = 10
     tree_num = 3
-    num_rounds = num_nodes + 5
+    num_rounds = 7
 
     # Generate directed, rooted graphs
     trees = generate_trees(num_nodes, num=tree_num)
