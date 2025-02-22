@@ -2,22 +2,30 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import differential_evolution
 
+
 # Define a function with two parameters
 def f(x, y):
-    return np.sin(np.pi*x) * np.cos(np.pi*y) + (x**2 + y**2)  # A function with local minima
+    return np.sin(np.pi * x) * np.cos(np.pi * y) + (
+        x**2 + y**2
+    )  # A function with local minima
+
 
 # Wrapper function for differential evolution
+
 
 def func_to_minimize(vars):
     x, y = vars
     return f(x, y)
 
+
 # Store iteration history
 history = []
+
 
 def callback(xk, convergence):
     pass
     # history.append(tuple(xk))
+
 
 def custom_strategy_fn(candidate: int, population: np.ndarray, rng=None):
     """
@@ -33,7 +41,7 @@ def custom_strategy_fn(candidate: int, population: np.ndarray, rng=None):
     print("population size", population.shape[0], "candidate", candidate)
     mutation, recombination = 0.7, 0.9
     # mutation, recombination = 0.1, 1.0
-    
+
     # evolve the candidate
     trial = np.copy(population[candidate])
 
@@ -55,8 +63,7 @@ def custom_strategy_fn(candidate: int, population: np.ndarray, rng=None):
             idxs.append(idx)
     r0, r1, r2 = idxs[:3]
 
-    bprime = (population[r0] + mutation *
-              (population[r1] - population[r2]))
+    bprime = population[r0] + mutation * (population[r1] - population[r2])
 
     # for each parameter pick a uniform rnd number
     crossovers = rng.uniform(size=parameter_count)
@@ -72,16 +79,20 @@ def custom_strategy_fn(candidate: int, population: np.ndarray, rng=None):
     trial = np.where(crossovers, bprime, trial)
     return trial
 
+
 # Perform Differential Evolution
 bounds = [(-2, 2), (-2, 2)]  # Bounds for x and y
-result = differential_evolution(func_to_minimize,
-                                bounds, callback=callback,
-                                strategy=custom_strategy_fn,
-                                init="random",
-                                popsize=5,
-                                seed=42,
-                                maxiter=10,
-                                polish=False)
+result = differential_evolution(
+    func_to_minimize,
+    bounds,
+    callback=callback,
+    strategy=custom_strategy_fn,
+    init="random",
+    popsize=5,
+    seed=42,
+    maxiter=10,
+    polish=False,
+)
 min_x, min_y = result.x
 min_value = result.fun
 
@@ -96,25 +107,31 @@ min_index = np.unravel_index(np.argmin(Z), Z.shape)
 global_min_x = X[min_index]
 global_min_y = Y[min_index]
 global_min_value = Z[min_index]
-print(f"Minimum value of f(x, y) is {global_min_value} at coordinates ({global_min_x}, {global_min_y})")
+print(
+    f"Minimum value of f(x, y) is {global_min_value} at coordinates ({global_min_x}, {global_min_y})"
+)
 
 # Plot function landscape and optimization trajectory
 plt.figure(figsize=(6, 5))
-plt.contourf(X, Y, Z, levels=50, cmap='viridis')
-plt.colorbar(label='f(x, y)')
+plt.contourf(X, Y, Z, levels=50, cmap="viridis")
+plt.colorbar(label="f(x, y)")
 
 # Plot trajectories
 history_x = [point[0] for point in history]
 history_y = [point[1] for point in history]
-plt.plot(history_x, history_y, color='red', marker='o', linestyle='dashed', label='Evolution trajectory')
+plt.plot(
+    history_x,
+    history_y,
+    color="red",
+    marker="o",
+    linestyle="dashed",
+    label="Evolution trajectory",
+)
 
-plt.plot([global_min_x], [global_min_y], color='orange', marker='o')
+plt.plot([global_min_x], [global_min_y], color="orange", marker="o")
 
-plt.xlabel('x')
-plt.ylabel('y')
+plt.xlabel("x")
+plt.ylabel("y")
 # plt.legend()
 # plt.title('Differential Evolution on f(x, y) with Trajectories')
-plt.savefig("de.pdf",
-            bbox_inches='tight', 
-            transparent=True,
-            pad_inches=0)
+plt.savefig("de.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
