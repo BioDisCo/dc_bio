@@ -144,17 +144,18 @@ def plot_trace(node_values: list, fname: str) -> None:
     )
     plt.xlabel("round")
     plt.ylabel("value")
-    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0)
+    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
 
 
 def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0) -> None:
     random.seed(42)
     to_plot = []
     values = {}
-    outputs = {}
+    outputs = []
     for round in range(num_rounds):
         # pick a random graph
         graph = random.sample(trees, k=1)[0]
+        plot_graph_to_pdf(graph, f"graph_round_{round}.pdf")
         if round == 0:
             # init
             values = {node: {random.uniform(0, 1)} for node in graph.nodes()}
@@ -165,7 +166,7 @@ def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0) -> None:
 
         if propagate_for_rounds > 0:
             # there is a propagation phase
-            if round % propagate_for_rounds == 0 and round > 0:
+            if round % propagate_for_rounds == 0:
                 # apply f
                 values = execute_fun(graph, num_rounds=1, node_values=values, f=f)
                 outputs = [
@@ -202,6 +203,6 @@ if __name__ == "__main__":
 
     # execute mean
     run_alg(graphs, graph_midpoint, "midpoint.pdf")
-    run_alg(graphs, graph_midpoint, f"midpoint-propagate.pdf", propagate_for_rounds=1)
+    run_alg(graphs, graph_midpoint, f"midpoint-propagate.pdf", propagate_for_rounds=2)
     run_alg(graphs, graph_mean, "mean.pdf")
-    run_alg(graphs, graph_mean, f"mean-propagate.pdf", propagate_for_rounds=1)
+    run_alg(graphs, graph_mean, f"mean-propagate.pdf", propagate_for_rounds=2)
