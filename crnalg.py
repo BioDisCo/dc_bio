@@ -43,7 +43,7 @@ plt.ylim([0.1,100])
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count")
 plt.xlabel("time")
-plt.savefig("crn-alg-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
+plt.savefig("crn-alg-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
 
 # deterministic
 MySim.run(
@@ -70,4 +70,4 @@ plt.ylim([0.1,100])
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count/volume")
 plt.xlabel("time")
-plt.savefig("crn-alg-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
+plt.savefig("crn-alg-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
