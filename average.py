@@ -112,7 +112,9 @@ def graph_midpoint(own: set, in_values: list[set]) -> set:
     return {(max(ret) + min(ret)) / 2.0}
 
 
-def graph_midextremes(own: set[tuple[float]], in_values: list[set[tuple[float]]]) -> set[tuple[float]]:
+def graph_midextremes(
+    own: set[tuple[float]], in_values: list[set[tuple[float]]]
+) -> set[tuple[float]]:
     ret = own
     for s in in_values:
         ret = ret | s
@@ -120,17 +122,18 @@ def graph_midextremes(own: set[tuple[float]], in_values: list[set[tuple[float]]]
 
     # Compute pairwise distances
     distances = squareform(pdist(points))
-    
+
     # Find indices of the two farthest points
     idx = np.unravel_index(np.argmax(distances), distances.shape)
-    
+
     # Get the two farthest points
     point1, point2 = np.array(points[idx[0]]), np.array(points[idx[1]])
-    
+
     # Compute the midpoint
     midpoint: np.ndarray = (point1 + point2) / 2.0
 
     return {tuple(midpoint.tolist())}
+
 
 def graph_approachextreme(own: set, in_values: list[set]) -> set:
     ret = own
@@ -141,13 +144,13 @@ def graph_approachextreme(own: set, in_values: list[set]) -> set:
 
     # Compute distances from x to all points
     distances = np.linalg.norm(points - own_point, axis=1)
-    
+
     # Find the index of the farthest point
     idx = np.argmax(distances)
-    
+
     # Get the farthest point
     farthest_point: np.ndarray = np.array(points[idx])
-    
+
     # Compute the midpoint
     midpoint: np.ndarray = (own_point + farthest_point) / 2.0
 
@@ -203,15 +206,24 @@ def plot_2d_trace(node_values: list, fname: str) -> None:
         # plot initial and final values over the rest
         history_x = [node_values[i][pn][0] for i in range(len(node_values))]
         history_y = [node_values[i][pn][1] for i in range(len(node_values))]
-        plt.plot(history_x[0:1], history_y[0:1], color="red", marker="o", linestyle="dashed")
-        plt.plot(history_x[-2:-1], history_y[-2:-1], color="blue", marker="o", linestyle="dashed")
+        plt.plot(
+            history_x[0:1], history_y[0:1], color="red", marker="o", linestyle="dashed"
+        )
+        plt.plot(
+            history_x[-2:-1],
+            history_y[-2:-1],
+            color="blue",
+            marker="o",
+            linestyle="dashed",
+        )
     plt.xlabel("x")
     plt.ylabel("y")
     plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
 
 
-
-def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0, two_d: bool=False) -> None:
+def run_alg(
+    graphs, f, fname: str, propagate_for_rounds: int = 0, two_d: bool = False
+) -> None:
     random.seed(42)
     to_plot = []
     values = {}
@@ -223,7 +235,10 @@ def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0, two_d: bool=Fa
         if round == 0:
             # init
             if two_d:
-                values = {node: {(random.uniform(0, 1),random.uniform(0, 1))} for node in graph.nodes()}
+                values = {
+                    node: {(random.uniform(0, 1), random.uniform(0, 1))}
+                    for node in graph.nodes()
+                }
             else:
                 values = {node: {random.uniform(0, 1)} for node in graph.nodes()}
             outputs = [list(values[node])[0] for node in sorted(graph.nodes().keys())]
@@ -249,7 +264,7 @@ def run_alg(graphs, f, fname: str, propagate_for_rounds: int = 0, two_d: bool=Fa
             # apply f
             values = execute_fun(graph, num_rounds=1, node_values=values, f=f)
             outputs = [list(values[node])[0] for node in sorted(graph.nodes().keys())]
-    
+
     # plot
     if two_d:
         plot_2d_trace(to_plot, fname)
@@ -281,6 +296,18 @@ if __name__ == "__main__":
 
     # 2d versions
     run_alg(graphs, graph_midextremes, f"midextremes.pdf", two_d=True)
-    run_alg(graphs, graph_midextremes, f"midextremes-propagate.pdf", propagate_for_rounds=2, two_d=True)
+    run_alg(
+        graphs,
+        graph_midextremes,
+        f"midextremes-propagate.pdf",
+        propagate_for_rounds=2,
+        two_d=True,
+    )
     run_alg(graphs, graph_approachextreme, f"approachextreme.pdf", two_d=True)
-    run_alg(graphs, graph_approachextreme, f"approachextreme-propagate.pdf", propagate_for_rounds=2, two_d=True)
+    run_alg(
+        graphs,
+        graph_approachextreme,
+        f"approachextreme-propagate.pdf",
+        propagate_for_rounds=2,
+        two_d=True,
+    )
