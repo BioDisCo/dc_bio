@@ -1,6 +1,4 @@
-all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf de_step.pdf
-
-hh_after.pdf: hh.py
+all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf de_step.pdf crn-alg-det.pdf crn-abc-det.pdf
 	python3 hh.py
 
 gradient.pdf: gradient.py
@@ -23,6 +21,13 @@ de.pdf: de.py
 
 de_step.pdf: de_step.py
 	python3 de_step.py
+
+
+crn-alg-det.pdf: crnalg.py
+	python3 crnalg.py
+
+crn-abc-det.pdf: crn.py
+	python3 crn.py
 
 clean:
 	rm *.pdf
