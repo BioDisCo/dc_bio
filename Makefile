@@ -1,4 +1,6 @@
 all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf de_step.pdf crn-alg-det.pdf crn-abc-det.pdf
+
+hh_after.pdf: hh.py
 	python3 hh.py
 
 gradient.pdf: gradient.py
