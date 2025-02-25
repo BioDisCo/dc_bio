@@ -77,6 +77,25 @@ def get_frequency(V):
     return (crossings - 1) / 500
 
 
+# Time span for simulation
+t_span = (0, 200)
+t_eval = np.linspace(*t_span, 10000)
+
+# Initial conditions
+V0 = -100
+m0 = alpha_m(V0) / (alpha_m(V0) + beta_m(V0))
+h0 = alpha_h(V0) / (alpha_h(V0) + beta_h(V0))
+n0 = alpha_n(V0) / (alpha_n(V0) + beta_n(V0))
+
+# Solve the system
+fa_100 = []
+f_100 = []
+for i in range(100):
+    th_factor = 0.1 * i
+    sol = solve_ivp(hh_model, t_span, [V0, m0, h0, n0], t_eval=t_eval, method="RK45")
+    fa_100.append(th_factor)
+    f_100.append(get_frequency(sol.y[0]))
+
 # Initial conditions
 # V0 = -65.0
 # m0 = alpha_m(V0) / (alpha_m(V0) + beta_m(V0))
@@ -84,40 +103,45 @@ def get_frequency(V):
 # n0 = alpha_n(V0) / (alpha_n(V0) + beta_n(V0))
 V0, m0, h0, n0 = 0, 0, 0, 0
 
-# Time span for simulation
-t_span = (0, 300)
-t_eval = np.linspace(*t_span, 10000)
-
 # Solve the system
-fa = []
-f = []
+fa_0 = []
+f_0 = []
 for i in range(100):
     th_factor = 0.1 * i
     sol = solve_ivp(hh_model, t_span, [V0, m0, h0, n0], t_eval=t_eval, method="RK45")
-    fa.append(th_factor)
-    f.append(get_frequency(sol.y[0]))
+    fa_0.append(th_factor)
+    f_0.append(get_frequency(sol.y[0]))
 
+# fig, axes = plt.subplots(1, 2, figsize=(10, 5))
+# axes[0].plot(fa, f, "o")
+# axes[1].plot(fa_100, f_100, "o")
+# plt.xlabel("Input current density (uA/cm²)", fontsize=16)
+# plt.ylabel("Frequency (kHz)", fontsize=16)
+# plt.savefig("frequency_sub.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
 
-plt.figure(figsize=(5, 5))
-plt.plot(fa, f, "o")
-plt.xlabel("Input current density (uA cm^-2)")
-plt.ylabel("Frequency (kHz)")
+plt.figure(figsize=(6, 5))
+plt.plot(fa_0, f_0, "o", label="Initial voltage 0mV", markersize=6)
+plt.plot(fa_100, f_100, "o", label="Initial voltage -100mV", markersize=6, alpha=0.7)
+plt.xlabel("Input current density (uA/cm²)", fontsize=16)
+plt.ylabel("Frequency (kHz)", fontsize=16)
+plt.legend(prop={'size': 16})
 plt.savefig("frequency.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
 
+V0, m0, h0, n0 = 0, 0, 0, 0
 th_factor = 0.5
 sol = solve_ivp(hh_model, t_span, [V0, m0, h0, n0], t_eval=t_eval, method="RK45")
-plt.figure(figsize=(5, 5))
+plt.figure(figsize=(4, 5))
 plt.plot(sol.t, sol.y[0])
-plt.xlabel("Time (ms)")
-plt.ylabel("Voltage (mV)")
+plt.xlabel("Time (ms)", fontsize=16)
+plt.ylabel("Voltage (mV)", fontsize=16)
 plt.savefig("hh_before.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
 
 th_factor = 1.1
 sol = solve_ivp(hh_model, t_span, [V0, m0, h0, n0], t_eval=t_eval, method="RK45")
-plt.figure(figsize=(5, 5))
+plt.figure(figsize=(4, 5))
 plt.plot(sol.t, sol.y[0])
-plt.xlabel("Time (ms)")
-plt.ylabel("Voltage (mV)")
+plt.xlabel("Time (ms)", fontsize=16)
+plt.ylabel("Voltage (mV)", fontsize=16)
 plt.savefig("hh_after.pdf", bbox_inches="tight", transparent=True, pad_inches=0)
 
 # plt.show()

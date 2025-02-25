@@ -63,7 +63,9 @@ print(f"Minimum value of f(x, y) is {min_value} at coordinates ({min_x}, {min_y}
 
 plt.figure(figsize=(6, 5))
 plt.contourf(X, Y, Z, levels=50, cmap="viridis")
-plt.colorbar(label="f(x, y)")
+cbar = plt.colorbar()
+cbar.set_label("f(x, y)", fontsize=16)
+cbar.ax.tick_params(labelsize=14)
 
 # Plot descent path
 history_x = [point[0] for point in history]
@@ -79,8 +81,10 @@ plt.plot(
 )
 plt.plot([min_x], [min_y], color="orange", marker="o")
 
-plt.xlabel("x")
-plt.ylabel("y")
+plt.xticks(fontsize=12)
+plt.yticks(fontsize=12)
+plt.xlabel("x", fontsize=16)
+plt.ylabel("y", fontsize=16)
 # plt.legend()
 # plt.title('Gradient Descent on f(x, y)')
 plt.savefig(

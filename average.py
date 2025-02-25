@@ -9,15 +9,15 @@ from scipy.spatial.distance import pdist, squareform
 random.seed(42)
 np.random.seed(42)
 
-
-def plot_graph_to_pdf(graph: nx.DiGraph, filename: str) -> None:
+def plot_graph_to_pdf(graph: nx.DiGraph, filename: str, pos: dict | None = None) -> dict:
     """
     Plot and save a tree to a PDF file
     """
     plt.figure(figsize=(3, 3))
-    pos = nx.spring_layout(tree, k=2)
+    if pos is None:
+        pos = nx.spring_layout(graph, k=2)
     nx.draw(
-        tree,
+        graph,
         pos,
         with_labels=True,
         node_color="lightblue",
@@ -30,6 +30,7 @@ def plot_graph_to_pdf(graph: nx.DiGraph, filename: str) -> None:
     )
     plt.savefig(filename, format="pdf")
     plt.close()
+    return pos
 
 
 def add_random_edges(G: nx.DiGraph, num_edges: int = 10) -> nx.DiGraph:
@@ -179,7 +180,7 @@ def execute_fun(
 
 
 def plot_trace(node_values: list, fname: str) -> None:
-    plt.figure(figsize=(4, 4))
+    plt.figure(figsize=(8, 3))
     plt.ylim(0, 1)
     plt.plot(
         range(len(node_values)),
@@ -188,8 +189,11 @@ def plot_trace(node_values: list, fname: str) -> None:
         color="gray",
         marker="o",
     )
-    plt.xlabel("round")
-    plt.ylabel("value")
+    plt.grid()
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("Round", fontsize=16)
+    plt.ylabel("Value", fontsize=16)
     plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
 
 
@@ -216,8 +220,10 @@ def plot_2d_trace(node_values: list, fname: str) -> None:
             marker="o",
             linestyle="dashed",
         )
-    plt.xlabel("x")
-    plt.ylabel("y")
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.xlabel("x", fontsize=16)
+    plt.ylabel("y", fontsize=16)
     plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
 
 
@@ -228,10 +234,11 @@ def run_alg(
     to_plot = []
     values = {}
     outputs = []
+    pos = None
     for round in range(num_rounds):
         # pick a random graph
         graph = random.sample(graphs, k=1)[0]
-        plot_graph_to_pdf(graph, f"graph_round_{round}.pdf")
+        pos = plot_graph_to_pdf(graph, f"graph_round_{round}.pdf", pos)
         if round == 0:
             # init
             if two_d:
@@ -276,6 +283,7 @@ if __name__ == "__main__":
     num_nodes = 10
     tree_num = 3
     num_rounds = 7
+    pos = None
 
     # Generate directed, rooted graphs
     trees = generate_trees(num_nodes, num=tree_num)
@@ -284,7 +292,7 @@ if __name__ == "__main__":
         # Add edges and plot and save each graph to PDF
         graph = add_random_edges(tree, num_edges=int(np.log(num_nodes)) * num_nodes)
         graphs.append(graph)
-        plot_graph_to_pdf(graph, f"graph_{i}.pdf")
+        pos = plot_graph_to_pdf(graph, f"graph_{i}.pdf", pos)
         # only for strongly connected digraphs:
         # print(f"diameter of graph {i} is {nx.diameter(graph)}")
 

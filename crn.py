@@ -1,4 +1,3 @@
-from turtle import pos
 from mobspy import BaseSpecies, Simulation, Zero
 import matplotlib.pyplot as plt
 
@@ -25,21 +24,24 @@ for i, res in enumerate(MySim.results):
         res["A"],
         label="A" if i == 0 else "_",
         color="red",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=2.5 if i == 0 else 2,
     )
     plt.plot(
         res["Time"],
         res["B"],
         label="B" if i == 0 else "_",
         color="blue",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=2.5 if i == 0 else 2,
     )
     plt.plot(
         res["Time"],
         res["C"],
         label="C" if i == 0 else "_",
         color="black",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=2.5 if i == 0 else 2,
     )
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count")
@@ -57,21 +59,24 @@ for i, res in enumerate(MySim.results):
         res["A"],
         label="A" if i == 0 else "_",
         color="red",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
     plt.plot(
         res["Time"],
         res["B"],
         label="B" if i == 0 else "_",
         color="blue",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
     plt.plot(
         res["Time"],
         res["C"],
         label="C" if i == 0 else "_",
         color="black",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count/volume")

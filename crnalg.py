@@ -1,5 +1,4 @@
-from turtle import pos
-from mobspy import BaseSpecies, Simulation, Zero
+from mobspy import BaseSpecies, Simulation
 import matplotlib.pyplot as plt
 
 duration = 10
@@ -29,14 +28,16 @@ for i, res in enumerate(MySim.results):
         res["A"],
         label="A" if i == 0 else "_",
         color="red",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
     plt.plot(
         res["Time"],
         res["B"],
         label="B" if i == 0 else "_",
         color="blue",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
 plt.gca().set_yscale('log')
 plt.ylim([0.1,100])
@@ -56,14 +57,16 @@ for i, res in enumerate(MySim.results):
         res["A"],
         label="A" if i == 0 else "_",
         color="red",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
     plt.plot(
         res["Time"],
         res["B"],
         label="B" if i == 0 else "_",
         color="blue",
-        alpha=1 if i == 0 else 0.07,
+        alpha=1 if i == 0 else 0.3,
+        linewidth=1.5 if i == 0 else 1,
     )
 plt.gca().set_yscale('log')
 plt.ylim([0.1,100])
