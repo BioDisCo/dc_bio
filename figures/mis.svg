@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="692.59003"
+   height="232"
+   viewBox="0 0 692.59003 232"
+   version="1.1"
+   id="svg218"
+   sodipodi:docname="is.svg"
+   inkscape:version="1.2.2 (b0a84865, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs222" />
+  <sodipodi:namedview
+     id="namedview220"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="2.054"
+     inkscape:cx="37.244401"
+     inkscape:cy="123.41772"
+     inkscape:window-width="1840"
+     inkscape:window-height="1205"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg218" />
+  <!-- Edges -->
+  <!-- Nodes -->
+  <g
+     id="g1352"
+     transform="translate(477.4177,48.327168)">
+    <g
+       id="g1960">
+      <line
+         x1="48.612465"
+         y1="-31.402134"
+         x2="98.612465"
+         y2="68.597847"
+         stroke="#000000"
+         stroke-width="2"
+         id="line186-3-41" />
+      <line
+         x1="49.926994"
+         y1="-30.428425"
+         x2="-0.073007427"
+         y2="69.571571"
+         stroke="#000000"
+         stroke-width="2"
+         id="line186-8-3" />
+      <line
+         x1="47.638741"
+         y1="168.88997"
+         x2="97.638771"
+         y2="68.889977"
+         stroke="#000000"
+         stroke-width="2"
+         id="line186-3-4-7" />
+      <line
+         x1="48.953285"
+         y1="167.91628"
+         x2="-1.0467166"
+         y2="67.916252"
+         stroke="#000000"
+         stroke-width="2"
+         id="line186-8-8-8" />
+      <line
+         x1="-103.94351"
+         y1="67.770195"
+         x2="199.07498"
+         y2="67.770195"
+         stroke="#000000"
+         stroke-width="2"
+         id="line184-1-8" />
+      <line
+         x1="-50.827652"
+         y1="-32.327168"
+         x2="49.172356"
+         y2="-32.327168"
+         stroke="#000000"
+         stroke-width="2"
+         id="line182-3" />
+      <line
+         x1="-52.336899"
+         y1="-32.521908"
+         x2="47.663109"
+         y2="-32.521908"
+         stroke="#000000"
+         stroke-width="2"
+         id="line182-8-8" />
+      <line
+         x1="49.172356"
+         y1="-32.327168"
+         x2="149.17233"
+         y2="-32.327168"
+         stroke="#000000"
+         stroke-width="2"
+         id="line184-15" />
+      <line
+         x1="149.17233"
+         y1="-32.327168"
+         x2="199.17233"
+         y2="67.672829"
+         stroke="#000000"
+         stroke-width="2"
+         id="line186-35" />
+      <line
+         x1="199.17233"
+         y1="67.672829"
+         x2="149.17233"
+         y2="167.67284"
+         stroke="#000000"
+         stroke-width="2"
+         id="line188-4" />
+      <line
+         x1="149.17233"
+         y1="167.67284"
+         x2="49.172356"
+         y2="167.67284"
+         stroke="#000000"
+         stroke-width="2"
+         id="line190-3" />
+      <line
+         x1="49.172356"
+         y1="167.67284"
+         x2="-50.827652"
+         y2="167.67284"
+         stroke="#000000"
+         stroke-width="2"
+         id="line192-6" />
+      <line
+         x1="-50.827652"
+         y1="167.67284"
+         x2="-100.82765"
+         y2="67.672829"
+         stroke="#000000"
+         stroke-width="2"
+         id="line194-5" />
+      <line
+         x1="-100.82765"
+         y1="67.672829"
+         x2="-50.827652"
+         y2="-32.327168"
+         stroke="#000000"
+         stroke-width="2"
+         id="line196-9" />
+      <circle
+         cx="-50.827652"
+         cy="-32.327168"
+         r="15"
+         fill="black"
+         id="circle198-5"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="49.172356"
+         cy="-32.327168"
+         r="15"
+         fill="#0000ff"
+         id="circle200-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="149.17233"
+         cy="-32.327168"
+         r="15"
+         fill="black"
+         id="circle202-9"
+         style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="199.17233"
+         cy="66.796486"
+         r="15"
+         fill="#0000ff"
+         id="circle204-1"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="149.17233"
+         cy="167.67284"
+         r="15"
+         fill="black"
+         id="circle206-7"
+         style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="95.505684"
+         cy="66.796486"
+         r="15"
+         fill="black"
+         id="circle206-6-55"
+         style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="2.8390257"
+         cy="66.796486"
+         r="15"
+         fill="black"
+         id="circle206-6-5-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="49.172356"
+         cy="167.67284"
+         r="15"
+         fill="#0000ff"
+         id="circle208-1"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="-50.827652"
+         cy="167.67284"
+         r="15"
+         fill="black"
+         id="circle210-8"
+         style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+      <circle
+         cx="-100.82765"
+         cy="66.796486"
+         r="15"
+         fill="#0000ff"
+         id="circle212-8"
+         style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+  </g>
+  <g
+     id="g1352-4"
+     transform="translate(116.82765,48.327168)"
+     inkscape:export-filename="is.pdf"
+     inkscape:export-xdpi="96"
+     inkscape:export-ydpi="96">
+    <line
+       x1="48.612465"
+       y1="-31.402134"
+       x2="98.612465"
+       y2="68.597847"
+       stroke="#000000"
+       stroke-width="2"
+       id="line186-3-41-4" />
+    <line
+       x1="49.926994"
+       y1="-30.428425"
+       x2="-0.073007427"
+       y2="69.571571"
+       stroke="#000000"
+       stroke-width="2"
+       id="line186-8-3-9" />
+    <line
+       x1="47.638741"
+       y1="168.88997"
+       x2="97.638771"
+       y2="68.889977"
+       stroke="#000000"
+       stroke-width="2"
+       id="line186-3-4-7-1" />
+    <line
+       x1="48.953285"
+       y1="167.91628"
+       x2="-1.0467166"
+       y2="67.916252"
+       stroke="#000000"
+       stroke-width="2"
+       id="line186-8-8-8-5" />
+    <line
+       x1="-103.94351"
+       y1="67.770195"
+       x2="199.07498"
+       y2="67.770195"
+       stroke="#000000"
+       stroke-width="2"
+       id="line184-1-8-5" />
+    <line
+       x1="-50.827652"
+       y1="-32.327168"
+       x2="49.172356"
+       y2="-32.327168"
+       stroke="#000000"
+       stroke-width="2"
+       id="line182-3-5" />
+    <line
+       x1="-52.336899"
+       y1="-32.521908"
+       x2="47.663109"
+       y2="-32.521908"
+       stroke="#000000"
+       stroke-width="2"
+       id="line182-8-8-8" />
+    <line
+       x1="49.172356"
+       y1="-32.327168"
+       x2="149.17233"
+       y2="-32.327168"
+       stroke="#000000"
+       stroke-width="2"
+       id="line184-15-2" />
+    <line
+       x1="149.17233"
+       y1="-32.327168"
+       x2="199.17233"
+       y2="67.672829"
+       stroke="#000000"
+       stroke-width="2"
+       id="line186-35-9" />
+    <line
+       x1="199.17233"
+       y1="67.672829"
+       x2="149.17233"
+       y2="167.67284"
+       stroke="#000000"
+       stroke-width="2"
+       id="line188-4-8" />
+    <line
+       x1="149.17233"
+       y1="167.67284"
+       x2="49.172356"
+       y2="167.67284"
+       stroke="#000000"
+       stroke-width="2"
+       id="line190-3-2" />
+    <line
+       x1="49.172356"
+       y1="167.67284"
+       x2="-50.827652"
+       y2="167.67284"
+       stroke="#000000"
+       stroke-width="2"
+       id="line192-6-0" />
+    <line
+       x1="-50.827652"
+       y1="167.67284"
+       x2="-100.82765"
+       y2="67.672829"
+       stroke="#000000"
+       stroke-width="2"
+       id="line194-5-7" />
+    <line
+       x1="-100.82765"
+       y1="67.672829"
+       x2="-50.827652"
+       y2="-32.327168"
+       stroke="#000000"
+       stroke-width="2"
+       id="line196-9-4" />
+    <circle
+       cx="-50.827652"
+       cy="-32.327168"
+       r="15"
+       fill="black"
+       id="circle198-5-8"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="49.172356"
+       cy="-32.327168"
+       r="15"
+       fill="#0000ff"
+       id="circle200-4-5"
+       style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="149.17233"
+       cy="-32.327168"
+       r="15"
+       fill="black"
+       id="circle202-9-8"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="199.17233"
+       cy="66.796486"
+       r="15"
+       fill="#0000ff"
+       id="circle204-1-3"
+       style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="149.17233"
+       cy="167.67284"
+       r="15"
+       fill="black"
+       id="circle206-7-0"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="95.505684"
+       cy="66.796486"
+       r="15"
+       fill="black"
+       id="circle206-6-55-6"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="2.8390257"
+       cy="66.796486"
+       r="15"
+       fill="black"
+       id="circle206-6-5-4-2"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="49.172356"
+       cy="167.67284"
+       r="15"
+       fill="#0000ff"
+       id="circle208-1-2"
+       style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="-50.827652"
+       cy="167.67284"
+       r="15"
+       fill="black"
+       id="circle210-8-5"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+    <circle
+       cx="-100.82765"
+       cy="66.796486"
+       r="15"
+       fill="#0000ff"
+       id="circle212-8-2"
+       style="fill:#9bcbff;fill-opacity:1;stroke:#000000;stroke-width:2;stroke-dasharray:none;stroke-opacity:1" />
+  </g>
+  <!-- Additional nodes for the graph -->
+</svg>
