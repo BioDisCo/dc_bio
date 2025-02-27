@@ -71,7 +71,7 @@ def plot_graph(G: nx.Graph, node_values: dict[NodeView, set], fname: str) -> Non
     node_colors = []
     for i, node in enumerate(G.nodes()):
         if "Term-MIS" in node_values[node]:
-            node_colors.append('blue')
+            node_colors.append('#9bcbff')
         elif "Term-nonMIS" in node_values[node]:
             node_colors.append('white')
         else:
