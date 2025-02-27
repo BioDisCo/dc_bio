@@ -29,6 +29,7 @@ def run_alg(
                 new_values[node] = computation.copy()
             node_values = new_values
             plot_graph(G, node_values, f"mis-{phase*rounds_per_phase + round_nr:03d}.png")
+            plot_graph(G, node_values, f"mis-{phase*rounds_per_phase + round_nr:03d}.pdf")
     return node_values
 
 
