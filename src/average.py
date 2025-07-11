@@ -9,7 +9,10 @@ from scipy.spatial.distance import pdist, squareform
 random.seed(42)
 np.random.seed(42)
 
-def plot_graph_to_pdf(graph: nx.DiGraph, filename: str, pos: dict | None = None) -> dict:
+
+def plot_graph_to_pdf(
+    graph: nx.DiGraph, filename: str, pos: dict | None = None
+) -> dict:
     """
     Plot and save a tree to a PDF file
     """
@@ -76,7 +79,9 @@ def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
         mapping = {list(tree.nodes())[0]: root}
         for node in tree.nodes():
             if node not in mapping:
-                mapping[node] = [n for n in nodes if n not in mapping.values()][0]
+                mapping[node] = [n for n in nodes if n not in mapping.values()][
+                    0
+                ]
         tree = nx.relabel_nodes(tree, mapping)
 
         # Convert to directed tree rooted at 'root'
@@ -205,13 +210,19 @@ def plot_2d_trace(node_values: list, fname: str) -> None:
         # plot history
         history_x = [node_values[i][pn][0] for i in range(len(node_values))]
         history_y = [node_values[i][pn][1] for i in range(len(node_values))]
-        plt.plot(history_x, history_y, color="gray", marker="o", linestyle="dashed")
+        plt.plot(
+            history_x, history_y, color="gray", marker="o", linestyle="dashed"
+        )
     for pn in range(len(node_values[0])):
         # plot initial and final values over the rest
         history_x = [node_values[i][pn][0] for i in range(len(node_values))]
         history_y = [node_values[i][pn][1] for i in range(len(node_values))]
         plt.plot(
-            history_x[0:1], history_y[0:1], color="red", marker="o", linestyle="dashed"
+            history_x[0:1],
+            history_y[0:1],
+            color="red",
+            marker="o",
+            linestyle="dashed",
         )
         plt.plot(
             history_x[-2:-1],
@@ -247,8 +258,12 @@ def run_alg(
                     for node in graph.nodes()
                 }
             else:
-                values = {node: {random.uniform(0, 1)} for node in graph.nodes()}
-            outputs = [list(values[node])[0] for node in sorted(graph.nodes().keys())]
+                values = {
+                    node: {random.uniform(0, 1)} for node in graph.nodes()
+                }
+            outputs = [
+                list(values[node])[0] for node in sorted(graph.nodes().keys())
+            ]
 
         # for plotting
         to_plot.append(outputs)
@@ -257,9 +272,12 @@ def run_alg(
             # there is a propagation phase
             if round % propagate_for_rounds == 0:
                 # apply f
-                values = execute_fun(graph, num_rounds=1, node_values=values, f=f)
+                values = execute_fun(
+                    graph, num_rounds=1, node_values=values, f=f
+                )
                 outputs = [
-                    list(values[node])[0] for node in sorted(graph.nodes().keys())
+                    list(values[node])[0]
+                    for node in sorted(graph.nodes().keys())
                 ]
             else:
                 # propagate
@@ -270,7 +288,9 @@ def run_alg(
         else:
             # apply f
             values = execute_fun(graph, num_rounds=1, node_values=values, f=f)
-            outputs = [list(values[node])[0] for node in sorted(graph.nodes().keys())]
+            outputs = [
+                list(values[node])[0] for node in sorted(graph.nodes().keys())
+            ]
 
     # plot
     if two_d:
@@ -290,7 +310,9 @@ if __name__ == "__main__":
     graphs: list[nx.DiGraph] = []
     for i, tree in enumerate(trees):
         # Add edges and plot and save each graph to PDF
-        graph = add_random_edges(tree, num_edges=int(np.log(num_nodes)) * num_nodes)
+        graph = add_random_edges(
+            tree, num_edges=int(np.log(num_nodes)) * num_nodes
+        )
         graphs.append(graph)
         pos = plot_graph_to_pdf(graph, f"graph_{i}.pdf", pos)
         # only for strongly connected digraphs:
@@ -298,7 +320,12 @@ if __name__ == "__main__":
 
     # execute mean
     run_alg(graphs, graph_midpoint, "midpoint.pdf")
-    run_alg(graphs, graph_midpoint, f"midpoint-propagate.pdf", propagate_for_rounds=2)
+    run_alg(
+        graphs,
+        graph_midpoint,
+        f"midpoint-propagate.pdf",
+        propagate_for_rounds=2,
+    )
     run_alg(graphs, graph_mean, "mean.pdf")
     run_alg(graphs, graph_mean, f"mean-propagate.pdf", propagate_for_rounds=2)
 

@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 duration = 10
 
 A, B, R = BaseSpecies()
-A(12) + B(8) >> A [.1]
-A + B >> B [.1]
-A + R(100) >> A + A [0.01]
-B + R >> B + B [0.01]
+A(12) + B(8) >> A[0.1]
+A + B >> B[0.1]
+A + R(100) >> A + A[0.01]
+B + R >> B + B[0.01]
 
 MySim = Simulation(A | B | R)
 
@@ -39,16 +39,21 @@ for i, res in enumerate(MySim.results):
         alpha=1 if i == 0 else 0.3,
         linewidth=1.5 if i == 0 else 1,
     )
-plt.gca().set_yscale('log')
-plt.ylim([0.1,100])
+plt.gca().set_yscale("log")
+plt.ylim([0.1, 100])
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count")
 plt.xlabel("time")
-plt.savefig("crn-alg-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
+plt.savefig(
+    "crn-alg-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01
+)
 
 # deterministic
 MySim.run(
-    simulation_method="deterministic", duration=duration, save_data=False, plot_data=False
+    simulation_method="deterministic",
+    duration=duration,
+    save_data=False,
+    plot_data=False,
 )
 plt.figure(figsize=(4, 4))
 for i, res in enumerate(MySim.results):
@@ -68,9 +73,11 @@ for i, res in enumerate(MySim.results):
         alpha=1 if i == 0 else 0.3,
         linewidth=1.5 if i == 0 else 1,
     )
-plt.gca().set_yscale('log')
-plt.ylim([0.1,100])
+plt.gca().set_yscale("log")
+plt.ylim([0.1, 100])
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count/volume")
 plt.xlabel("time")
-plt.savefig("crn-alg-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
+plt.savefig(
+    "crn-alg-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01
+)

@@ -1,41 +1,41 @@
-all: hh_after.pdf gradient.pdf gradient_momentum.pdf gradient_noise.pdf particle.pdf de.pdf particle_step.pdf de_step.pdf crn-alg-det.pdf crn-abc-det.pdf mis_video.mp4
+OUTDIR=out-figures
 
-hh_after.pdf: hh.py
-	python3 hh.py
+all: figures crn-alg-$(OUTDIR)/det.pdf crn-abc-$(OUTDIR)/det.pdf mis_video.mp4
 
-gradient.pdf: gradient.py
-	python3 gradient.py
+figures: $(OUTDIR)/fig1a-below.pdf $(OUTDIR)/fig2a-gradient.pdf $(OUTDIR)/fig4b-differential_evolution.pdf $(OUTDIR)/fig4d-particle_swarm.pdf
 
-gradient_momentum.pdf: gradient_momentum.py
-	python3 gradient_momentum.py
+$(OUTDIR)/fig1a-below.pdf: src/hodgkin_huxley.py
+	mkdir -p $(OUTDIR)
+	python3 src/hodgkin_huxley.py $(OUTDIR)
 
-gradient_noise.pdf: gradient_noise.py
-	python3 gradient_noise.py
+$(OUTDIR)/fig2a-gradient.pdf: src/gradient_descent.py
+	mkdir -p $(OUTDIR)
+	python3 src/gradient_descent.py $(OUTDIR)
 
-particle.pdf: particle.py
-	python3 particle.py
+$(OUTDIR)/fig4b-differential_evolution.pdf: src/differential_evolution.py
+	mkdir -p $(OUTDIR)
+	python3 src/differential_evolution.py $(OUTDIR)
 
-particle_step.pdf: particle_step.py
-	python3 particle_step.py
+$(OUTDIR)/fig4d-particle_swarm.pdf: src/particle_swarm.py
+	mkdir -p $(OUTDIR)
+	python3 src/particle_swarm.py $(OUTDIR)
 
-de.pdf: de.py
-	python3 de.py
+crn-alg-$(OUTDIR)/crn_anihilation.pdf: crnalg.py
+	mkdir -p $(OUTDIR)
+	python3 src/crnalg.py $(OUTDIR)
 
-de_step.pdf: de_step.py
-	python3 de_step.py
+crn-abc-$(OUTDIR)/det.pdf: crn.py
+	mkdir -p $(OUTDIR)
+	python3 src/crn.py $(OUTDIR)
 
+mis-$(OUTDIR)/final.pdf: mis.py
+	mkdir -p $(OUTDIR)
+	python3 src/mis.py $(OUTDIR)
 
-crn-alg-det.pdf: crnalg.py
-	python3 crnalg.py
-
-crn-abc-det.pdf: crn.py
-	python3 crn.py
-
-mis-final.pdf: mis.py
-	python3 mis.py
-
-mis_video.mp4: mis-final.pdf
-	ffmpeg -framerate 2 -i mis-%03d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -pix_fmt yuv420p mis_video.mp4
+mis_video.mp4: mis-$(OUTDIR)/final.pdf
+	mkdir -p $(OUTDIR)
+	ffmpeg -framerate 2 -i mis-%03d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -pix_fmt yuv420p $(OUTDIR)/mis_video.mp4
 
 clean:
-	rm *.pdf *.png mis_video.mp4
+	rm $(OUTDIR)/*.pdf $(OUTDIR)/*.png $(OUTDIR)/*.mp4; \
+	rmdir $(OUTDIR)

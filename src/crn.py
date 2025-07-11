@@ -46,11 +46,16 @@ for i, res in enumerate(MySim.results):
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count")
 plt.xlabel("time")
-plt.savefig("crn-abc-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
+plt.savefig(
+    "crn-abc-stoch.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01
+)
 
 # deterministic
 MySim.run(
-    simulation_method="deterministic", duration=10, save_data=False, plot_data=False
+    simulation_method="deterministic",
+    duration=10,
+    save_data=False,
+    plot_data=False,
 )
 plt.figure(figsize=(4, 4))
 for i, res in enumerate(MySim.results):
@@ -81,4 +86,6 @@ for i, res in enumerate(MySim.results):
 plt.legend(frameon=False, loc=(0.8, 0.7))
 plt.ylabel("count/volume")
 plt.xlabel("time")
-plt.savefig("crn-abc-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01)
+plt.savefig(
+    "crn-abc-det.pdf", bbox_inches="tight", transparent=True, pad_inches=0.01
+)
