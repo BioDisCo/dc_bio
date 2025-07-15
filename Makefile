@@ -2,7 +2,7 @@ OUTDIR=out-figures
 
 all: figures crn-alg-$(OUTDIR)/det.pdf crn-abc-$(OUTDIR)/det.pdf mis_video.mp4
 
-figures: $(OUTDIR)/fig1a-below.pdf $(OUTDIR)/fig2a-gradient.pdf $(OUTDIR)/fig4b-differential_evolution.pdf $(OUTDIR)/fig4d-particle_swarm.pdf
+figures: $(OUTDIR)/fig1a-below.pdf $(OUTDIR)/fig2a-gradient.pdf $(OUTDIR)/fig4b-differential_evolution.pdf $(OUTDIR)/fig4d-particle_swarm.pdf $(OUTDIR)/fig5b_consensus_mean.pdf
 
 $(OUTDIR)/fig1a-below.pdf: src/hodgkin_huxley.py
 	mkdir -p $(OUTDIR)
@@ -19,6 +19,10 @@ $(OUTDIR)/fig4b-differential_evolution.pdf: src/differential_evolution.py
 $(OUTDIR)/fig4d-particle_swarm.pdf: src/particle_swarm.py
 	mkdir -p $(OUTDIR)
 	python3 src/particle_swarm.py $(OUTDIR)
+
+$(OUTDIR)/fig5b_consensus_mean.pdf: src/consensus.py
+	mkdir -p $(OUTDIR)
+	python3 src/consensus.py $(OUTDIR)
 
 crn-alg-$(OUTDIR)/crn_anihilation.pdf: crnalg.py
 	mkdir -p $(OUTDIR)
