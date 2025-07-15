@@ -537,11 +537,14 @@ def main(outdir: str) -> None:
     # --------------------------------------------------------------------------
     # ~ Initial values
 
+    random.seed(rnd_seed * 11)
     # ~ 1D
     init_values_1D: dict[str, set[float]] = {
-        node: {1 if random.uniform(0, 1) > 0.5 else 0}
+        node: {random.uniform(0, 1)}
         for node in graphs_sequence[0].nodes()
     }
+
+    random.seed(rnd_seed * 42)
     # ~ 2D
     init_values_2D: dict[str, set[tuple[float, float]]] = {
         node: {(random.uniform(0, 1), random.uniform(0, 1))}
