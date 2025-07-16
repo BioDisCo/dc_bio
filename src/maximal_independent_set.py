@@ -201,6 +201,12 @@ def main(outdir: str, videodir: str) -> None:
         plot_graph(f"{roundir}/fig8-mis_round_{i:03d}.png", G, mis_state)
 
     # --------------------------------------------------------------------------
+    # Figure 8b
+    # --------------------------------------------------------------------------
+    plot_graph(f"{outdir}/fig8b-mis_round_9.pdf", G, history[9])
+
+
+    # --------------------------------------------------------------------------
     # Figure 8c
     # --------------------------------------------------------------------------
     plot_graph(f"{outdir}/fig8c-mis_final.pdf", G, mis_results)
