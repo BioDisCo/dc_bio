@@ -171,3 +171,6 @@ cython_debug/
 .pypirc
 
 *.pdf
+.vscode/
+out-figures/
+out-videos/
