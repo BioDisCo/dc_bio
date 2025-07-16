@@ -563,7 +563,7 @@ def main(outdir: str) -> None:
         init_values_1D,
     )
     plot_trace_1D(
-        f"{outdir}/fig5b_consensus_mean.pdf",
+        f"{outdir}/fig5b-consensus_mean.pdf",
         history_1D,
     )
 
@@ -576,7 +576,7 @@ def main(outdir: str) -> None:
         propagate_frequency=2,
     )
     plot_trace_1D(
-        f"{outdir}/fig5c_consensus_mean_propagate.pdf",
+        f"{outdir}/fig5c-consensus_mean_propagate.pdf",
         history_1D,
     )
 
@@ -592,7 +592,7 @@ def main(outdir: str) -> None:
         init_values_1D,
     )
     plot_trace_1D(
-        f"{outdir}/fig5d_consensus_midpoint.pdf",
+        f"{outdir}/fig5d-consensus_midpoint.pdf",
         history_1D,
     )
 
@@ -605,7 +605,7 @@ def main(outdir: str) -> None:
         propagate_frequency=2,
     )
     plot_trace_1D(
-        f"{outdir}/fig5e_consensus_midpoint_propagate.pdf",
+        f"{outdir}/fig5e-consensus_midpoint_propagate.pdf",
         history_1D,
     )
 
@@ -621,7 +621,7 @@ def main(outdir: str) -> None:
         init_values_2D,
     )
     plot_trace_2D(
-        f"{outdir}/fig6a_consensus_midextremes.pdf",
+        f"{outdir}/fig6a-consensus_midextremes.pdf",
         history_2D,
     )
 
@@ -634,7 +634,7 @@ def main(outdir: str) -> None:
         propagate_frequency=2,
     )
     plot_trace_2D(
-        f"{outdir}/fig6b_consensus_midextremes_propagate.pdf",
+        f"{outdir}/fig6b-consensus_midextremes_propagate.pdf",
         history_2D,
     )
 
@@ -650,7 +650,7 @@ def main(outdir: str) -> None:
         init_values_2D,
     )
     plot_trace_2D(
-        f"{outdir}/fig6c_consensus_approachextreme.pdf",
+        f"{outdir}/fig6c-consensus_approachextreme.pdf",
         history_2D,
     )
 
@@ -663,7 +663,7 @@ def main(outdir: str) -> None:
         propagate_frequency=2,
     )
     plot_trace_2D(
-        f"{outdir}/fig6d_consensus_approachextreme_propagate.pdf",
+        f"{outdir}/fig6d-consensus_approachextreme_propagate.pdf",
         history_2D,
     )
 
