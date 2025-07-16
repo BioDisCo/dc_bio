@@ -154,11 +154,12 @@ def plot_graph(
 
 # ------------------------------------------------------------------------------
 # ~ Main
-def main(outdir: str) -> None:
+def main(outdir: str, videodir: str) -> None:
     """_summary_.
 
     Args:
         outdir (str): _description_
+        videodir (str): _description_
 
     """
     # --------------------------------------------------------------------------
@@ -194,7 +195,7 @@ def main(outdir: str) -> None:
     # --------------------------------------------------------------------------
     # Figure 8b + intermediary
     # --------------------------------------------------------------------------
-    roundir: str = f"{outdir}/fig8-mis-rounds"
+    roundir: str = f"{videodir}/fig8-mis-rounds"
     pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
     for i, mis_state in enumerate(history):
         plot_graph(f"{roundir}/fig8-mis_round_{i:03d}.png", G, mis_state)
@@ -210,4 +211,5 @@ def main(outdir: str) -> None:
 if __name__ == "__main__":
     main(
         pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[1]}",
+        pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[2]}",
     )

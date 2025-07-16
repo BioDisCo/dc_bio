@@ -360,11 +360,12 @@ def plot_step(  # noqa: PLR0913
 
 # ------------------------------------------------------------------------------
 # ~ Main
-def main(outdir: str) -> None:
+def main(outdir: str, videodir: str) -> None:
     """_summary_.
 
     Args:
         outdir (str): _description_
+        videodir (str): _description_
 
     """
     # --------------------------------------------------------------------------
@@ -436,10 +437,24 @@ def main(outdir: str) -> None:
     # Plot
     plot(X, Y, Z, history, export=f"{outdir}/fig4b-differential_evolution.pdf")
 
+    # --------------------------------------------------------------------------
+    # ~ Plot history for videos
+    roundir: str = f"{videodir}/fig4b-differential_evolution/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for i in range(len(history)):
+        plot(
+            X,
+            Y,
+            Z,
+            history[:i+1],
+            export=f"{roundir}/fig4b-differential_evolution_round_{i:03d}.png",
+        )
+
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
     main(
         pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[1]}",
+        pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[2]}",
     )
