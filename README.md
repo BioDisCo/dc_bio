@@ -21,7 +21,22 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Paper's Figures
+## Jupyter Notebook
+
+We provide a *jupyter notebook* (`notebook.ipynb`) to showcase the bio-inspired algorithms discussed in the associated paper.
+
+It can be visualized at https://nbviewer.org/github/BioDisCo/dc_bio/tree/main/.
+
+It can also be executed online (*without any installation*), using *Binder* [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BioDisCo/dc_bio/HEAD).
+
+
+## Figures and Videos
+
+Use `Make` to generate all figures and supplementary videos.
+
+***Warning:*** all Python requirements should be installed.
+
+### Paper's Figures
 
 *Python 3* scripts generating the associated paper figures are stored in `src`.
 All figures can be generated using:
@@ -30,16 +45,11 @@ Make figures
 ```
 Figures will be generated in the `out-figures` directory.
 
-Supplementary videos can be generated using:
+### Supplementary Videos
+
+`ffmeg` is required to generated the supplementary videos.
+They can be generated using:
 ```bash
 Make videos
 ```
-`ffmeg` is required to generated the supplementary videos.
-
-**Remarks:** Use `Make` to generate both all figures and supplementary videos.
-
-## Notebooks
-
-They can be visualized at https://nbviewer.org/github/BioDisCo/dc_bio/tree/main/.
-
-They can be executed online (without any installation), using Binder [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/BioDisCo/dc_bio/HEAD).
+Videos will be generated in the `out-videos` directory.
