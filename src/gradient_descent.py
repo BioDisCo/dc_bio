@@ -291,14 +291,18 @@ def plot(  # noqa: PLR0913
         # ~ Display
         plt.show()
 
+    plt.close()
+
 
 # ------------------------------------------------------------------------------
 # ~ Main
-def main(outdir: str) -> None:
+def main(outdir: str, videodir: str) -> None:
     """_summary_.
 
     Args:
         outdir (str): _description_
+        videodir (str): _description_
+
 
     """
     # --------------------------------------------------------------------------
@@ -337,6 +341,19 @@ def main(outdir: str) -> None:
     plot(X, Y, Z, history, export=f"{outdir}/fig2a-gradient.pdf")
 
     # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig2a-gradient/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for i in range(len(history)):
+        plot(
+            X,
+            Y,
+            Z,
+            history[:i+1],
+            export=f"{roundir}/fig2a-gradient_round_{i:03d}.png",
+        )
+
+    # --------------------------------------------------------------------------
     # Figure 2b
     # --------------------------------------------------------------------------
     # Run gradient descent
@@ -351,6 +368,20 @@ def main(outdir: str) -> None:
 
     # Plot
     plot(X, Y, Z, history, export=f"{outdir}/fig2b-gradient_momentum.pdf")
+
+    # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig2b-gradient_momentum/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for i in range(min(50, len(history))):
+        plot(
+            X,
+            Y,
+            Z,
+            history[:i+1],
+            export=f"{roundir}/fig2b-gradient_momentum_round_{i:03d}.png",
+        )
+
 
     # --------------------------------------------------------------------------
     # Figure 2c
@@ -369,10 +400,24 @@ def main(outdir: str) -> None:
     # Plot
     plot(X, Y, Z, history, export=f"{outdir}/fig2c-gradient_noise.pdf")
 
+    # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig2c-gradient_noise/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for j, i in enumerate(range(0, len(history), 5)):
+        plot(
+            X,
+            Y,
+            Z,
+            history[:i+1],
+            export=f"{roundir}/fig2c-gradient_noise_round_{j:03d}.png",
+        )
+
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
     main(
         pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[1]}",
+        pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[2]}",
     )
