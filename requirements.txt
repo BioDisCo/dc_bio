@@ -3,3 +3,4 @@ networkx
 scipy
 mobspy
 ipykernel
+ipywidgets

@@ -310,11 +310,18 @@ def main(outdir: str, videodir: str) -> None:
         max_iter=1,
     )
     best_id: int = np.argmin(f(pn[0], pn[1]) for pn in history[-2])
-    print(best_id)
     target_id: int = 5
 
     # Plot
-    plot_step(X, Y, Z, history, best_id, target_id, export=f"{outdir}/fig4c-particle_swarm_step.pdf")
+    plot_step(
+        X,
+        Y,
+        Z,
+        history,
+        best_id,
+        target_id,
+        export=f"{outdir}/fig4c-particle_swarm_step.pdf",
+    )
 
     # --------------------------------------------------------------------------
     # Figure 4d

@@ -1,4 +1,4 @@
-"""Basic showcase of consensus algorithms."""  # noqa: E501
+"""Basic showcase of consensus algorithms."""
 
 # ==============================================================================
 # IMPORTS
@@ -64,7 +64,7 @@ def consensus(
                 for neighbor in sorted(graph_i.predecessors(node))
             ]
             next_graph_state[node] = round_func(
-                graph_state[node], neighbor_values
+                graph_state[node], neighbor_values,
             ).copy()
         graph_state = next_graph_state
 
@@ -82,7 +82,7 @@ def consensus(
 # Communication functions
 # ------------------------------------------------------------------------------
 def graph_flood(own: set, in_values: list[set]) -> set:
-    """_summary_
+    """_summary_.
 
     Args:
         own (set): _description_
@@ -99,7 +99,7 @@ def graph_flood(own: set, in_values: list[set]) -> set:
 
 
 def graph_mean(own: set, in_values: list[set]) -> set:
-    """_summary_
+    """_summary_.
 
     Args:
         own (set): _description_
@@ -116,7 +116,7 @@ def graph_mean(own: set, in_values: list[set]) -> set:
 
 
 def graph_midpoint(own: set, in_values: list[set]) -> set:
-    """_summary_
+    """_summary_.
 
     Args:
         own (set): _description_
@@ -133,7 +133,7 @@ def graph_midpoint(own: set, in_values: list[set]) -> set:
 
 
 def graph_midextremes(
-    own: set[tuple[float]], in_values: list[set[tuple[float]]]
+    own: set[tuple[float]], in_values: list[set[tuple[float]]],
 ) -> set[tuple[float]]:
     """_summary_.
 
@@ -204,17 +204,18 @@ def graph_approachextreme(own: set, in_values: list[set]) -> set:
 # Graph generation
 # ------------------------------------------------------------------------------
 def add_random_edges(G: nx.DiGraph, num_edges: int = 10) -> nx.DiGraph:
-    """
-    Adds random edges to an DiGraph.
+    """Adds random edges to an DiGraph.
 
-    Parameters:
+    Parameters
+    ----------
     G (nx.DiGraph): The directed graph.
     num_edges (int): Number of random edges to add.
 
-    Returns:
+    Returns
+    -------
     nx.DiGraph: The graph with added edges.
 
-    """
+    """  # noqa: D401
     nodes = list(G.nodes)
     nodes.sort()
     added_edges: int = 0
@@ -229,7 +230,7 @@ def add_random_edges(G: nx.DiGraph, num_edges: int = 10) -> nx.DiGraph:
 
 
 def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
-    """_summary_
+    """_summary_.
 
     Args:
         num_nodes (int): _description_
@@ -255,9 +256,9 @@ def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
         mapping = {list(tree.nodes())[0]: root}
         for node in tree.nodes():
             if node not in mapping:
-                mapping[node] = (
-                    [n for n in nodes if n not in mapping.values()][0]
-                )
+                mapping[node] = [n for n in nodes if n not in mapping.values()][
+                    0
+                ]
         tree = nx.relabel_nodes(tree, mapping)
 
         # Convert to directed tree rooted at 'root'
@@ -272,6 +273,59 @@ def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
             break
     return trees
 
+
+def generate_graphs(
+        num_nodes: int,
+        num: int,
+        seed: int = 42,
+    ) -> list[nx.DiGraph]:
+    """_summary_.
+
+    Args:
+        num_nodes (int): _description_
+        num (int): _description_
+        seed (int, optional): _description_. Defaults to 42.
+
+    Returns:
+        list[nx.DiGraph]: _description_
+
+    """
+    random.seed(seed)
+    trees: list[nx.DiGraph] = generate_trees(num_nodes, num=num)
+    graphs: list[nx.DiGraph] = []
+    for tree in trees:
+        # Add edges and plot and save each graph to PDF
+        graph: nx.DiGraph = add_random_edges(
+            tree,
+            num_edges=int(np.log(num_nodes)) * num_nodes,
+        )
+        graphs.append(graph)
+    return graphs
+
+
+def generate_graphs_sequence(
+        graphs: list[nx.Digraph],
+        num: int,
+        seed: int = 42,
+    ) -> list[nx.Digraph]:
+    """_summary_.
+
+    Args:
+        graphs (list[nx.Digraph]): _description_
+        num (int): _description_
+        seed (int, optional): _description_. Defaults to 42.
+
+    Returns:
+        list[nx.Digraph]: _description_
+
+    """
+    random.seed(seed)
+    graphs_sequence: list[nx.DiGraph] = []
+    for _ in range(num):
+        graph_round_id: int = random.sample(range(len(graphs)), k=1)[0]
+        graph_round_i: nx.DiGraph = graphs[graph_round_id]
+        graphs_sequence.append(graph_round_i)
+    return graphs_sequence
 
 # ------------------------------------------------------------------------------
 # ~ Plotting
@@ -314,7 +368,7 @@ def export_graph(
 
 
 def plot_trace_1D(fname: str, history: list[list[float]]) -> None:
-    """_summary_
+    """_summary_.
 
     Args:
         fname (str): _description_
@@ -322,7 +376,6 @@ def plot_trace_1D(fname: str, history: list[list[float]]) -> None:
 
     """
     plt.figure(figsize=(8, 3))
-    # plt.ylim(0, 1)
     plt.plot(
         range(len(history)),
         history,
@@ -340,7 +393,7 @@ def plot_trace_1D(fname: str, history: list[list[float]]) -> None:
 
 
 def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
-    """_summary_
+    """_summary_.
 
     Args:
         fname (str): _description_
@@ -355,7 +408,7 @@ def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
         history_x = [history[i][pn][0] for i in range(len(history))]
         history_y = [history[i][pn][1] for i in range(len(history))]
         plt.plot(
-            history_x, history_y, color="gray", marker="o", linestyle="dashed"
+            history_x, history_y, color="gray", marker="o", linestyle="dashed",
         )
     for pn in range(len(history[0])):
         # plot initial and final values over the rest
@@ -383,7 +436,7 @@ def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
 
 
 def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
-    """_summary_
+    """_summary_.
 
     Args:
         fname (str): _description_
@@ -391,18 +444,15 @@ def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
 
     """
     rates: list[float] = [
-        max(abs(i - j) for i in state for j in state)
-        for state in history
+        max(abs(i - j) for i in state for j in state) for state in history
     ]
     plt.figure(figsize=(8, 3))
-    # plt.ylim(0, 1)
     plt.plot(
         range(len(history)),
         rates,
         "-",
         color="gray",
         marker="o",
-        # alpha=0.5,
     )
     plt.grid()
     plt.xticks(fontsize=12)
@@ -413,8 +463,8 @@ def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
 
 
 def build_psi_graph(n: int, i: int) -> nx.DiGraph:
-    """
-    Construct the Ψ_i worst-case graph as per Section 6 of the paper:
+    """Construct the Ψ_i worst-case graph as per Section 6 of the paper.
+
     > Matthias F¨ugger, Thomas Nowak, and Manfred Schwarz. Tight bounds for asymptotic and approximate consensus. Journal of the ACM (JACM), 68(6):1-35, 2021.
 
     Args:
@@ -425,10 +475,10 @@ def build_psi_graph(n: int, i: int) -> nx.DiGraph:
         nx.DiGraph: The Ψ_i graph.
 
     """
-    if not (0 <= i <= 2):
-        raise ValueError("i must be 0, 1, or 2")
-    if n < 3:
-        raise ValueError("n must be at least 3")
+    if not (0 <= i <= 2):  # noqa: PLR2004
+        raise ValueError("i must be 0, 1, or 2")  # noqa: EM101, TRY003
+    if n < 3:  # noqa: PLR2004
+        raise ValueError("n must be at least 3")  # noqa: EM101, TRY003
 
     G: nx.DiGraph = nx.DiGraph()
 
@@ -436,15 +486,15 @@ def build_psi_graph(n: int, i: int) -> nx.DiGraph:
     G.add_nodes_from(range(1, n))
 
     # Path: nodes 3 → 4 → ... → n-1
-    for j in range(3, n-1):
-        G.add_edge(j, j+1)
+    for j in range(3, n - 1):
+        G.add_edge(j, j + 1)
 
     # Special case: i sends to 4
     G.add_edge(i, 3)
 
     # Remaining of {0,1,2} \ {i} → 3, with in-neighbor n
     for j in {0, 1, 2} - {i}:
-        G.add_edge(n-1, j)  # n → j
+        G.add_edge(n - 1, j)  # n → j
         G.add_edge(j, 3)  # j → 4
 
     return G
@@ -482,35 +532,14 @@ def main(outdir: str) -> None:
     pathlib.Path(graphs_dir).mkdir(parents=True, exist_ok=True)
 
     # ~ Build random communication graphs
-    random.seed(rnd_seed)
-    trees: list[nx.DiGraph] = generate_trees(num_nodes, num=tree_num)
-    graphs: list[nx.DiGraph] = []
-    for i, tree in enumerate(trees):
-        # Add edges and plot and save each graph to PDF
-        graph: nx.DiGraph = add_random_edges(
-            tree,
-            num_edges=int(np.log(num_nodes)) * num_nodes,
-        )
-        graphs.append(graph)
+    graphs: list[nx.DiGraph] = generate_graphs(num_nodes, tree_num, seed=rnd_seed)
+    for i, G in enumerate(graphs):
         pos: dict = export_graph(
             f"{graphs_dir}/graph_{i}.pdf",
-            graph,
+            G,
             pos,
             seed=rnd_seed,
         )
-
-    # random.seed(rnd_seed)
-    # graphs: list[nx.DiGraph] = []
-    # pos: dict | None = None
-    # for i in range(tree_num):
-    #     graph: nx.DiGraph = build_psi_graph(num_nodes, i)
-    #     graphs.append(graph)
-    #     pos: dict = export_graph(
-    #         f"{graphs_dir}/graph_{i}.pdf",
-    #         graph,
-    #         pos,
-    #         seed=rnd_seed,
-    #     )
 
     # --------------------------------------------------------------------------
     # ~ Generate the communication graph sequence
@@ -520,16 +549,15 @@ def main(outdir: str) -> None:
     pathlib.Path(rounds_dir).mkdir(parents=True, exist_ok=True)
 
     # ~ Generate a random communication graph sequence
-    random.seed(rnd_seed)
-    graphs_sequence: list[nx.DiGraph] = []
-    for i in range(num_rounds):
-        graph_round_id: int = random.sample(range(len(graphs)), k=1)[0]
-        graph_round_i: nx.DiGraph = graphs[graph_round_id]
-        graphs_sequence.append(graph_round_i)
+    graphs_sequence: list[nx.DiGraph] = generate_graphs_sequence(
+        graphs, num_rounds, seed=rnd_seed,
+    )
+    for i in range(min(num_rounds, num_rounds_to_draw)):
+        Gi: nx.DiGraph = graphs_sequence[i]
         if i < num_rounds_to_draw:
             pos: dict = export_graph(
                 f"{rounds_dir}/graph_round_{i}.pdf",
-                graph_round_i,
+                Gi,
                 pos,
                 seed=rnd_seed,
             )
@@ -540,8 +568,7 @@ def main(outdir: str) -> None:
     random.seed(rnd_seed * 11)
     # ~ 1D
     init_values_1D: dict[str, set[float]] = {
-        node: {random.uniform(0, 1)}
-        for node in graphs_sequence[0].nodes()
+        node: {random.uniform(0, 1)} for node in graphs_sequence[0].nodes()
     }
 
     random.seed(rnd_seed * 42)

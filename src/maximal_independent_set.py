@@ -64,6 +64,7 @@ def maximal_independent_set(
                 new_values[node] = computation.copy()
             node_values = new_values
             history.append(node_values)
+
     return node_values, history
 
 
@@ -184,8 +185,8 @@ def main(outdir: str, videodir: str) -> None:
     mis_results, history = maximal_independent_set(
         G,
         phases=int(
-            np.log(max_degree)
-        ),  # See https://www.science.org/doi/pdf/10.1126/science.1193210
+            np.log(max_degree),
+        ) + 1,  # See https://www.science.org/doi/pdf/10.1126/science.1193210
         rounds_per_phase=20,
         step_func=graph_step,
         neighbors_ub=max_degree,
