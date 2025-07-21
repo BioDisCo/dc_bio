@@ -322,7 +322,7 @@ def interact_gradient_descent(
     # --------------------------------------------------------------------------
     # Init plot
     # --------------------------------------------------------------------------
-    titles: list[str] = ["Standard", "with momentum", "with noisy"]
+    titles: list[str] = ["Standard", "with momentum", "with noise step"]
     fig, axes = plt.subplots(1, 3, figsize=(20, 4))
 
     with plot_frame:
@@ -658,21 +658,21 @@ def interact_particle_swarm(
         min=0,
         max=1,
         step=0.01,
-        description="W",
+        description="Momentum",
     )
     c1_slider: widgets.FloatSlider = widgets.FloatSlider(
         value=0.15,
         min=0,
         max=2,
         step=0.01,
-        description="C1",
+        description="Wp",
     )
     c2_slider: widgets.FloatSlider = widgets.FloatSlider(
         value=0.15,
         min=0,
         max=2,
         step=0.01,
-        description="C2",
+        description="Wg",
     )
     seed_field: widgets.IntText = widgets.IntText(
         value=42,
