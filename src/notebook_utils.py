@@ -115,6 +115,7 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
         description="n0",
     )
 
+    run_button = widgets.Button(description="Run")
     reset_button = widgets.Button(description="Reset")
     auto_checkbox = widgets.Checkbox(value=False, description="Auto")
 
@@ -123,7 +124,7 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
     sliders_row2 = widgets.HBox(
         [m0_slider, h0_slider, n0_slider, auto_checkbox],
     )
-    button_row = widgets.HBox([reset_button])
+    button_row = widgets.HBox([run_button, reset_button])
     ui = widgets.VBox(
         [sliders_row1, v0_slider, sliders_row2, button_row],
     )
@@ -177,17 +178,10 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
         plt.show()
 
     # --- Debounced update ---
-    def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
-    def on_text_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
     def on_auto_toggle(_: Any) -> None:  # noqa: ANN401
         auto = auto_checkbox.value
         for w in [m0_slider, h0_slider, n0_slider]:
             w.disabled = auto
-        run_sim()
 
     def on_reset_click(_: Any) -> None:  # noqa: ANN401
         th_field.value = threshold
@@ -197,19 +191,10 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
         h0_slider.value = defaults["h0"]
         n0_slider.value = defaults["n0"]
         auto_checkbox.value = False
-        run_sim()
 
     # --- Register events ---
-    for slider in [
-        v0_slider,
-        m0_slider,
-        h0_slider,
-        n0_slider,
-        thf_slider,
-    ]:
-        slider.observe(on_slider_change, names="value")
-    th_field.observe(on_text_change)
     reset_button.on_click(on_reset_click)
+    run_button.on_click(lambda _: run_sim())
     auto_checkbox.observe(on_auto_toggle, names="value")
 
     # --- Initial plot ---
@@ -892,6 +877,7 @@ def interact_crn_abc(duration: float = 10.0):
         description="Repeats",
     )
 
+    run_button = widgets.Button(description="Run")
     reset_button = widgets.Button(description="Reset")
 
     # --- Layout ---
@@ -902,7 +888,7 @@ def interact_crn_abc(duration: float = 10.0):
     sliders_row3 = widgets.HBox(
         [seed_field, repeat_slider],
     )
-    button_row = widgets.HBox([reset_button])
+    button_row = widgets.HBox([run_button, reset_button])
     ui = widgets.VBox(
         [sliders_row1, sliders_row2, sliders_row3, button_row],
     )
@@ -978,12 +964,6 @@ def interact_crn_abc(duration: float = 10.0):
         plt.show()
 
     # --- Debounced update ---
-    def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
-    def on_text_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
     def on_reset_click(_: Any) -> None:  # noqa: ANN401
         a0_slider.value = defaults["a0"]
         b0_slider.value = defaults["b0"]
@@ -991,19 +971,10 @@ def interact_crn_abc(duration: float = 10.0):
         k2_slider.value = defaults["k2"]
         seed_field.value = defaults["seed"]
         repeat_slider.value = defaults["repeats"]
-        run_sim()
 
     # --- Register events ---
-    for slider in [
-        a0_slider,
-        b0_slider,
-        k1_slider,
-        k2_slider,
-        repeat_slider,
-    ]:
-        slider.observe(on_slider_change, names="value")
-    seed_field.observe(on_text_change)
     reset_button.on_click(on_reset_click)
+    run_button.on_click(lambda _: run_sim())
 
     # --- Initial plot ---
     run_sim()
@@ -1090,6 +1061,7 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
         description="Repeats",
     )
 
+    run_button = widgets.Button(description="Run")
     reset_button = widgets.Button(description="Reset")
 
     # --- Layout ---
@@ -1100,7 +1072,7 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
     sliders_row3 = widgets.HBox(
         [seed_field, repeat_slider],
     )
-    button_row = widgets.HBox([reset_button])
+    button_row = widgets.HBox([run_button, reset_button])
     ui = widgets.VBox(
         [sliders_row1, sliders_row2, sliders_row3, button_row],
     )
@@ -1177,12 +1149,6 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
         plt.show()
 
     # --- Debounced update ---
-    def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
-    def on_text_change(_: Any) -> None:  # noqa: ANN401
-        run_sim()
-
     def on_reset_click(_: Any) -> None:  # noqa: ANN401
         a0_slider.value = defaults["a0"]
         b0_slider.value = defaults["b0"]
@@ -1193,19 +1159,10 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
         k4_slider.value = defaults["k4"]
         seed_field.value = defaults["seed"]
         repeat_slider.value = defaults["repeats"]
-        run_sim()
 
     # --- Register events ---
-    for slider in [
-        a0_slider,
-        b0_slider,
-        k1_slider,
-        k2_slider,
-        repeat_slider,
-    ]:
-        slider.observe(on_slider_change, names="value")
-    seed_field.observe(on_text_change)
     reset_button.on_click(on_reset_click)
+    run_button.on_click(lambda _: run_sim())
 
     # --- Initial plot ---
     run_sim()
