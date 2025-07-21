@@ -8,7 +8,6 @@ For details on the implementations, please refer to other `src/*.py` files.
 # Import
 # ==============================================================================
 import random
-import threading
 import time
 from typing import Any, Callable, Literal
 
@@ -130,13 +129,8 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
     )
     display(ui)
 
-    # --- Debounce timer ---
-    debounce_timer = None
-    debounce_delay = 0.5  # seconds
-
     # --- Run simulation and plot ---
     def run_sim() -> None:
-        nonlocal debounce_timer
         t_span = (0, duration)
         t_eval = np.linspace(*t_span, steps)
 
@@ -184,11 +178,7 @@ def interact_hodgkin_huxley(duration: float = 200.0, steps: int = 500):
 
     # --- Debounced update ---
     def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        nonlocal debounce_timer
-        if debounce_timer is not None:
-            debounce_timer.cancel()
-        debounce_timer = threading.Timer(debounce_delay, run_sim)
-        debounce_timer.start()
+        run_sim()
 
     def on_text_change(_: Any) -> None:  # noqa: ANN401
         run_sim()
@@ -918,14 +908,8 @@ def interact_crn_abc(duration: float = 10.0):
     )
     display(ui)
 
-    # --- Debounce timer ---
-    debounce_timer = None
-    debounce_delay = 0.5  # seconds
-
     # --- Run simulation and plot ---
     def run_sim() -> None:
-        nonlocal debounce_timer
-
         sim_deterministic = simulate_abc(
             (a0_slider.value, b0_slider.value),
             (k1_slider.value, k2_slider.value),
@@ -995,11 +979,7 @@ def interact_crn_abc(duration: float = 10.0):
 
     # --- Debounced update ---
     def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        nonlocal debounce_timer
-        if debounce_timer is not None:
-            debounce_timer.cancel()
-        debounce_timer = threading.Timer(debounce_delay, run_sim)
-        debounce_timer.start()
+        run_sim()
 
     def on_text_change(_: Any) -> None:  # noqa: ANN401
         run_sim()
@@ -1126,14 +1106,8 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
     )
     display(ui)
 
-    # --- Debounce timer ---
-    debounce_timer = None
-    debounce_delay = 0.5  # seconds
-
     # --- Run simulation and plot ---
     def run_sim() -> None:
-        nonlocal debounce_timer
-
         sim_deterministic = simulate_mutual_annihilation(
             (a0_slider.value, b0_slider.value, r_slider.value),
             (
@@ -1204,11 +1178,7 @@ def interact_crn_mutual_annihilation(duration: float = 10.0):
 
     # --- Debounced update ---
     def on_slider_change(_: Any) -> None:  # noqa: ANN401
-        nonlocal debounce_timer
-        if debounce_timer is not None:
-            debounce_timer.cancel()
-        debounce_timer = threading.Timer(debounce_delay, run_sim)
-        debounce_timer.start()
+        run_sim()
 
     def on_text_change(_: Any) -> None:  # noqa: ANN401
         run_sim()
