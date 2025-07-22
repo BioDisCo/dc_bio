@@ -1924,13 +1924,15 @@ def interact_consensus_2D(
             plt.figure(figsize=(4, 4))
             plt.xlim(0, 1)
             plt.ylim(0, 1)
-            for pn in range(len(history[0])):
+            for pn in range(len(history_propagate[0])):
                 # plot history
                 history_x = [
-                    history[i][pn][0] for i in range(len(history_propagate))
+                    history_propagate[i][pn][0]
+                    for i in range(len(history_propagate))
                 ]
                 history_y = [
-                    history[i][pn][1] for i in range(len(history_propagate))
+                    history_propagate[i][pn][1]
+                    for i in range(len(history_propagate))
                 ]
                 plt.plot(
                     history_x,
@@ -1939,13 +1941,15 @@ def interact_consensus_2D(
                     marker="o",
                     linestyle="dashed",
                 )
-            for pn in range(len(history[0])):
+            for pn in range(len(history_propagate[0])):
                 # plot initial and final values over the rest
                 history_x = [
-                    history[i][pn][0] for i in range(len(history_propagate))
+                    history_propagate[i][pn][0]
+                    for i in range(len(history_propagate))
                 ]
                 history_y = [
-                    history[i][pn][1] for i in range(len(history_propagate))
+                    history_propagate[i][pn][1]
+                    for i in range(len(history_propagate))
                 ]
                 plt.plot(
                     history_x[0:1],
