@@ -25,7 +25,7 @@ from scipy.spatial.distance import pdist, squareform
 def consensus(
     func: Callable[[set, list[set]], set],
     sequence: list[nx.DiGraph],
-    init_values_1D: dict[str, set[float, tuple[float, float]]],
+    init_values_1D: dict[str, set[float | tuple[float, float]]],
     propagate_frequency: int | None = None,
 ) -> list[list[float | tuple[float, float]]]:
     """_summary_.
@@ -45,7 +45,7 @@ def consensus(
     outputs: list[list[float | tuple[float, float]]] = [
         list(graph_state[node])[0] for node in sorted(graph_state.keys())
     ]
-    for round, graph_i in enumerate(sequence):
+    for round, graph_i in enumerate(sequence, start=1):
         history.append(outputs.copy())
 
         round_func: Callable = func
@@ -60,19 +60,16 @@ def consensus(
         }
         for node in graph_i.nodes():
             neighbor_values: list[set[float | tuple[float, float]]] = [
-                graph_state[neighbor]
-                for neighbor in sorted(graph_i.predecessors(node))
+                graph_state[neighbor] for neighbor in sorted(graph_i.predecessors(node))
             ]
             next_graph_state[node] = round_func(
-                graph_state[node], neighbor_values,
+                graph_state[node],
+                neighbor_values,
             ).copy()
         graph_state = next_graph_state
 
         if update_output:
-            outputs = [
-                list(graph_state[node])[0]
-                for node in sorted(graph_state.keys())
-            ]
+            outputs = [list(graph_state[node])[0] for node in sorted(graph_state.keys())]
 
     history.append(outputs)
     return history
@@ -133,7 +130,8 @@ def graph_midpoint(own: set, in_values: list[set]) -> set:
 
 
 def graph_midextremes(
-    own: set[tuple[float]], in_values: list[set[tuple[float]]],
+    own: set[tuple[float]],
+    in_values: list[set[tuple[float]]],
 ) -> set[tuple[float]]:
     """_summary_.
 
@@ -211,11 +209,11 @@ def add_random_edges(G: nx.DiGraph, num_edges: int = 10) -> nx.DiGraph:
     G (nx.DiGraph): The directed graph.
     num_edges (int): Number of random edges to add.
 
-    Returns
+    Returns:
     -------
     nx.DiGraph: The graph with added edges.
 
-    """  # noqa: D401
+    """
     nodes = list(G.nodes)
     nodes.sort()
     added_edges: int = 0
@@ -256,9 +254,7 @@ def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
         mapping = {list(tree.nodes())[0]: root}
         for node in tree.nodes():
             if node not in mapping:
-                mapping[node] = [n for n in nodes if n not in mapping.values()][
-                    0
-                ]
+                mapping[node] = [n for n in nodes if n not in mapping.values()][0]
         tree = nx.relabel_nodes(tree, mapping)
 
         # Convert to directed tree rooted at 'root'
@@ -275,10 +271,10 @@ def generate_trees(num_nodes: int, num: int) -> list[nx.DiGraph]:
 
 
 def generate_graphs(
-        num_nodes: int,
-        num: int,
-        seed: int = 42,
-    ) -> list[nx.DiGraph]:
+    num_nodes: int,
+    num: int,
+    seed: int = 42,
+) -> list[nx.DiGraph]:
     """_summary_.
 
     Args:
@@ -304,19 +300,19 @@ def generate_graphs(
 
 
 def generate_graphs_sequence(
-        graphs: list[nx.Digraph],
-        num: int,
-        seed: int = 42,
-    ) -> list[nx.Digraph]:
+    graphs: list[nx.DiGraph],
+    num: int,
+    seed: int = 42,
+) -> list[nx.DiGraph]:
     """_summary_.
 
     Args:
-        graphs (list[nx.Digraph]): _description_
+        graphs (list[nx.DiGraph]): _description_
         num (int): _description_
         seed (int, optional): _description_. Defaults to 42.
 
     Returns:
-        list[nx.Digraph]: _description_
+        list[nx.DiGraph]: _description_
 
     """
     random.seed(seed)
@@ -326,6 +322,40 @@ def generate_graphs_sequence(
         graph_round_i: nx.DiGraph = graphs[graph_round_id]
         graphs_sequence.append(graph_round_i)
     return graphs_sequence
+
+
+def generate_butterfly_graph(num_nodes: int) -> nx.DiGraph:
+    """Generate a buterfly graph.
+
+    Args:
+        num_nodes: the number of nodes, must by even and positive
+
+    Returns:
+        the butterfly graph with `num_nodes` nodes
+
+    Raises:
+        ValueError: if num_nodes is odd or nonpositive
+    """
+    if num_nodes % 2 != 0 or num_nodes <= 0:
+        msg = "Number of nodes of a butterfly graph must be even and positive."
+        raise ValueError(msg)
+
+    m = num_nodes // 2
+    G = nx.DiGraph()
+    G.add_edge(m, m + m)
+    G.add_edge(m + m, m)
+
+    for i in range(1, m + 1):
+        G.add_edge(i, i)
+        G.add_edge(1, i)
+        G.add_edge(i, ((i - 2) % m) + 1)
+
+        G.add_edge(i + m, i + m)
+        G.add_edge(1 + m, i + m)
+        G.add_edge(i + m, ((i - 2) % m) + 1 + m)
+
+    return G
+
 
 # ------------------------------------------------------------------------------
 # ~ Plotting
@@ -408,7 +438,11 @@ def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
         history_x = [history[i][pn][0] for i in range(len(history))]
         history_y = [history[i][pn][1] for i in range(len(history))]
         plt.plot(
-            history_x, history_y, color="gray", marker="o", linestyle="dashed",
+            history_x,
+            history_y,
+            color="gray",
+            marker="o",
+            linestyle="dashed",
         )
     for pn in range(len(history[0])):
         # plot initial and final values over the rest
@@ -443,9 +477,7 @@ def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
         history (list): _description_
 
     """
-    rates: list[float] = [
-        max(abs(i - j) for i in state for j in state) for state in history
-    ]
+    rates: list[float] = [max(abs(i - j) for i in state for j in state) for state in history]
     plt.figure(figsize=(8, 3))
     plt.plot(
         range(len(history)),
@@ -550,7 +582,9 @@ def main(outdir: str) -> None:
 
     # ~ Generate a random communication graph sequence
     graphs_sequence: list[nx.DiGraph] = generate_graphs_sequence(
-        graphs, num_rounds, seed=rnd_seed,
+        graphs,
+        num_rounds,
+        seed=rnd_seed,
     )
     for i in range(min(num_rounds, num_rounds_to_draw)):
         Gi: nx.DiGraph = graphs_sequence[i]
@@ -567,15 +601,12 @@ def main(outdir: str) -> None:
 
     random.seed(rnd_seed * 11)
     # ~ 1D
-    init_values_1D: dict[str, set[float]] = {
-        node: {random.uniform(0, 1)} for node in graphs_sequence[0].nodes()
-    }
+    init_values_1D: dict[str, set[float]] = {node: {random.uniform(0, 1)} for node in graphs_sequence[0].nodes()}
 
     random.seed(rnd_seed * 42)
     # ~ 2D
     init_values_2D: dict[str, set[tuple[float, float]]] = {
-        node: {(random.uniform(0, 1), random.uniform(0, 1))}
-        for node in graphs_sequence[0].nodes()
+        node: {(random.uniform(0, 1), random.uniform(0, 1))} for node in graphs_sequence[0].nodes()
     }
 
     # --------------------------------------------------------------------------

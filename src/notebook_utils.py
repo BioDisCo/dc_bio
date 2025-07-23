@@ -393,12 +393,8 @@ def interact_gradient_descent(
             n_steps = max(len(h) for h in histories)
             for i in range(n_steps):
                 for j, history in enumerate(histories):
-                    history_x: list[float] = [
-                        point[0] for point in history[: i + 1]
-                    ]
-                    history_y: list[float] = [
-                        point[1] for point in history[: i + 1]
-                    ]
+                    history_x: list[float] = [point[0] for point in history[: i + 1]]
+                    history_y: list[float] = [point[1] for point in history[: i + 1]]
                     lines[j].set_data(history_x, history_y)
 
                 with plot_frame:
@@ -582,12 +578,8 @@ def interact_differential_evolution(
             for i in range(n_steps):
                 for j, history in enumerate(histories):
                     for pn in range(len(history[0][0])):
-                        history_x: list[float] = [
-                            point[0][pn] for point in history[: i + 1]
-                        ]
-                        history_y: list[float] = [
-                            point[1][pn] for point in history[: i + 1]
-                        ]
+                        history_x: list[float] = [point[0][pn] for point in history[: i + 1]]
+                        history_y: list[float] = [point[1][pn] for point in history[: i + 1]]
                         lines[j][pn].set_data(history_x, history_y)
 
                 with plot_frame:
@@ -781,14 +773,8 @@ def interact_particle_swarm(
             for i in range(n_steps):
                 for j, history in enumerate(histories):
                     for pn in range(len(history[0])):
-                        history_x = [
-                            history[i][pn][0]
-                            for i in range(len(history[: i + 1]))
-                        ]
-                        history_y = [
-                            history[i][pn][1]
-                            for i in range(len(history[: i + 1]))
-                        ]
+                        history_x = [history[i][pn][0] for i in range(len(history[: i + 1]))]
+                        history_y = [history[i][pn][1] for i in range(len(history[: i + 1]))]
                         lines[j][pn].set_data(history_x, history_y)
 
                 with plot_frame:
@@ -1475,12 +1461,7 @@ def interact_consensus_graphs() -> tuple[list[nx.DiGraph], list[nx.DiGraph]]:
                 5,
                 figsize=(
                     3 * 5,
-                    3
-                    * (
-                        1
-                        + len(sequence) // 5
-                        - (1 if len(sequence) % 5 == 0 else 0)
-                    ),
+                    3 * (1 + len(sequence) // 5 - (1 if len(sequence) % 5 == 0 else 0)),
                 ),
             )
 
@@ -1519,7 +1500,9 @@ def interact_consensus_graphs() -> tuple[list[nx.DiGraph], list[nx.DiGraph]]:
 
 
 def interact_consensus_1D(
-    sequence: list[nx.DiGraph], method: Literal["mean", "midpoint"],
+    sequence: list[nx.DiGraph],
+    method: Literal["mean", "midpoint"],
+    init_values_1D: dict[str, set[float | tuple[float, float]]] | None = None,
 ) -> None:
     clear_output()
 
@@ -1529,7 +1512,7 @@ def interact_consensus_1D(
     propagate_slider: widgets.IntSlider = widgets.IntSlider(
         value=2,
         min=2,
-        max=10,
+        max=len(sequence),
         step=1,
         description="Flooding steps",
     )
@@ -1572,28 +1555,25 @@ def interact_consensus_1D(
     # --------------------------------------------------------------------------
     # Utils
     # --------------------------------------------------------------------------
-    def render_table(history):
-        print(history)
-        html = "<table style='border-collapse: collapse;'>"
-        html += (
-            "<thead><tr>"
-            + "".join(
-                f"<th style='border:1px solid black;padding:4px'>{h if h != 0 else 'Rounds'}</th>"  # noqa: E501
-                for h in range(len(history))
-            )
-            + "</tr></thead><tbody>"
-        )
-        for row in range(len(history[0])):
-            html += (
-                f"<tr><td style='border:1px solid black;padding:4px'>Node {row}</td>"
-                + "".join(
-                    f"<td style='border:1px solid black;padding:4px'>{cell:.4f}</td>"  # noqa: E501
-                    for cell in history[0][row]
-                )
-                + "</tr>"
-            )
-        html += "</tbody></table>"
-        return html
+    #     def render_table(history):
+    #         print(history)
+    #         html = "<table style='border-collapse: collapse;'>"
+    #         html += (
+    #             "<thead><tr>"
+    #             + "".join(
+    #                 f"<th style='border:1px solid black;padding:4px'>{h if h != 0 else 'Rounds'}</th>"
+    #                 for h in range(len(history))
+    #             )
+    #             + "</tr></thead><tbody>"
+    #         )
+    #         for row in range(len(history[0])):
+    #             html += (
+    #                 f"<tr><td style='border:1px solid black;padding:4px'>Node {row}</td>"
+    #                 + "".join(f"<td style='border:1px solid black;padding:4px'>{cell:.4f}</td>" for cell in history[0][row])
+    #                 + "</tr>"
+    #             )
+    #         html += "</tbody></table>"
+    #         return html
 
     def render_table(data: list[list[float]]) -> str:
         nb_rounds = len(data)
@@ -1627,9 +1607,9 @@ def interact_consensus_1D(
         run_button.disabled = True
 
         random.seed(seed_field.value * 11)
-        init_values_1D: dict[str, set[float]] = {
-            node: {random.uniform(0, 1)} for node in sequence[0].nodes()
-        }
+        nonlocal init_values_1D
+        if init_values_1D is None:
+            init_values_1D = {node: {random.uniform(0, 1)} for node in sequence[0].nodes()}
 
         if method == "mean":
             history: list[list[float]] = consensus(
@@ -1660,10 +1640,7 @@ def interact_consensus_1D(
                 propagate_frequency=propagate_slider.value,
             )
         else:
-            msg = (
-                f"Unknown method: {method}."
-                "Please choose among `mean` or `midpoint`."
-            )
+            msg = f"Unknown method: {method}.Please choose among `mean` or `midpoint`."
             raise ValueError(msg)
 
         # ----------------------------------------------------------------------
@@ -1727,7 +1704,8 @@ def interact_consensus_1D(
 
 
 def interact_consensus_2D(
-    sequence: list[nx.DiGraph], method: Literal["midextreme", "approachextreme"],
+    sequence: list[nx.DiGraph],
+    method: Literal["midextreme", "approachextreme"],
 ) -> None:
     clear_output()
 
@@ -1786,18 +1764,15 @@ def interact_consensus_2D(
         html += (
             "<thead><tr>"
             + "".join(
-                f"<th style='border:1px solid black;padding:4px'>{h if h != 0 else 'Rounds'}</th>"  # noqa: E501
+                f"<th style='border:1px solid black;padding:4px'>{h if h != 0 else 'Rounds'}</th>"
                 for h in range(len(history))
             )
             + "</tr></thead><tbody>"
         )
         for row in range(len(history[0])):
             html += (
-                f"<tr><td style='border:1px solid black;padding:4px'>Node {row}</td>"  # noqa: E501
-                + "".join(
-                    f"<td style='border:1px solid black;padding:4px'>{cell:.4f}</td>"  # noqa: E501
-                    for cell in history[0][row]
-                )
+                f"<tr><td style='border:1px solid black;padding:4px'>Node {row}</td>"
+                + "".join(f"<td style='border:1px solid black;padding:4px'>{cell:.4f}</td>" for cell in history[0][row])
                 + "</tr>"
             )
         html += "</tbody></table>"
@@ -1808,21 +1783,21 @@ def interact_consensus_2D(
         nb_nodes = len(data[0]) if nb_rounds > 0 else 0
 
         # Transpose: rows → nodes, columns → rounds
-        table = "<table style='border-collapse: collapse; border: 1px solid black;'>"  # noqa: E501
+        table = "<table style='border-collapse: collapse; border: 1px solid black;'>"
 
         # Header
-        table += "<thead><tr><th style='border: 1px solid black; padding: 4px;'>Node \\ Round</th>"  # noqa: E501
+        table += "<thead><tr><th style='border: 1px solid black; padding: 4px;'>Node \\ Round</th>"
         for r in range(nb_rounds):
-            table += f"<th style='border: 1px solid black; padding: 4px;'>Round {r}</th>"  # noqa: E501
+            table += f"<th style='border: 1px solid black; padding: 4px;'>Round {r}</th>"
         table += "</tr></thead>"
 
         # Body: one row per node
         table += "<tbody>"
         for node in range(nb_nodes):
-            table += f"<tr><td style='border: 1px solid black; padding: 4px;'>Node {node}</td>"  # noqa: E501
+            table += f"<tr><td style='border: 1px solid black; padding: 4px;'>Node {node}</td>"
             for r in range(nb_rounds):
                 val = data[r][node]
-                table += f"<td style='border: 1px solid black; padding: 4px;'>({val[0]:.3f}, {val[1]:.3f})</td>"  # noqa: E501
+                table += f"<td style='border: 1px solid black; padding: 4px;'>({val[0]:.3f}, {val[1]:.3f})</td>"
             table += "</tr>"
         table += "</tbody></table>"
 
@@ -1837,8 +1812,7 @@ def interact_consensus_2D(
         random.seed(seed_field.value * 42)
         # ~ 2D
         init_values_2D: dict[str, set[tuple[float, float]]] = {
-            node: {(random.uniform(0, 1), random.uniform(0, 1))}
-            for node in sequence[0].nodes()
+            node: {(random.uniform(0, 1), random.uniform(0, 1))} for node in sequence[0].nodes()
         }
 
         if method == "midextreme":
@@ -1870,10 +1844,7 @@ def interact_consensus_2D(
                 propagate_frequency=propagate_slider.value,
             )
         else:
-            msg = (
-                f"Unknown method: {method}."
-                "Please choose among `mean` or `midpoint`."
-            )
+            msg = f"Unknown method: {method}.Please choose among `mean` or `midpoint`."
             raise ValueError(msg)
 
         # ----------------------------------------------------------------------
@@ -1926,14 +1897,8 @@ def interact_consensus_2D(
             plt.ylim(0, 1)
             for pn in range(len(history_propagate[0])):
                 # plot history
-                history_x = [
-                    history_propagate[i][pn][0]
-                    for i in range(len(history_propagate))
-                ]
-                history_y = [
-                    history_propagate[i][pn][1]
-                    for i in range(len(history_propagate))
-                ]
+                history_x = [history_propagate[i][pn][0] for i in range(len(history_propagate))]
+                history_y = [history_propagate[i][pn][1] for i in range(len(history_propagate))]
                 plt.plot(
                     history_x,
                     history_y,
@@ -1943,14 +1908,8 @@ def interact_consensus_2D(
                 )
             for pn in range(len(history_propagate[0])):
                 # plot initial and final values over the rest
-                history_x = [
-                    history_propagate[i][pn][0]
-                    for i in range(len(history_propagate))
-                ]
-                history_y = [
-                    history_propagate[i][pn][1]
-                    for i in range(len(history_propagate))
-                ]
+                history_x = [history_propagate[i][pn][0] for i in range(len(history_propagate))]
+                history_y = [history_propagate[i][pn][1] for i in range(len(history_propagate))]
                 plt.plot(
                     history_x[0:1],
                     history_y[0:1],
