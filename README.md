@@ -12,7 +12,9 @@ numpy
 networkx
 scipy
 mobspy
+jupyterlab
 ipykernel
+ipywidgets
 ```
 A virtual Python 3 environment with all dependencies can be installed with:
 ```bash
@@ -34,7 +36,11 @@ It can also be executed online (*without any installation*), using *Binder* [![B
 
 Use `Make` to generate all figures and supplementary videos.
 
-***Warning:*** all Python requirements should be installed.
+>***Remarks:*** Generated figures may differ from the paper ones.
+Indeed, the scripts heavily rely on `numpy.random` and `random` packages.
+While, we define fixed seeds for everything, the behaviors of these pseudo-random algorithms may changed depending on the user OS, and the OS and packages versions.
+
+>***Warning:*** all Python requirements should be installed.
 
 ### Paper's Figures
 
