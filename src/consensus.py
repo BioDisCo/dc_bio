@@ -534,7 +534,7 @@ def build_psi_graph(n: int, i: int) -> nx.DiGraph:
 
 # ------------------------------------------------------------------------------
 # ~ Main
-def main(outdir: str) -> None:
+def main(outdir: str, videodir: str) -> None:
     """_summary_.
 
     Args:
@@ -668,6 +668,37 @@ def main(outdir: str) -> None:
     )
 
     # --------------------------------------------------------------------------
+    # ~ Fig. 5f - equal-weight butterfly
+
+    butterfly_graph = generate_butterfly_graph(num_nodes=10)
+    butterfly_sequence = generate_graphs_sequence(graphs=[butterfly_graph], num=20)
+    butterfly_init_values_1D = {node: {0 if node <= num_nodes // 2 else 1} for node in butterfly_graph.nodes()}
+    history_1D: list[list[float]] = consensus(
+        graph_mean,
+        sequence=butterfly_sequence,
+        init_values_1D=butterfly_init_values_1D,
+        propagate_frequency=None,
+    )
+    plot_trace_1D(
+        f"{outdir}/fig5f-consensus_butterfly_mean.pdf",
+        history_1D,
+    )
+
+    # --------------------------------------------------------------------------
+    # ~ Fig. 5g - amortized midpoint butterfly
+
+    history_1D: list[list[float]] = consensus(
+        graph_midpoint,
+        sequence=butterfly_sequence,
+        init_values_1D=butterfly_init_values_1D,
+        propagate_frequency=9,
+    )
+    plot_trace_1D(
+        f"{outdir}/fig5g-consensus_butterfly_amortized_midpoint.pdf",
+        history_1D,
+    )
+
+    # --------------------------------------------------------------------------
     # Figure 6[a/b] - MidExtremes algorithm
     # --------------------------------------------------------------------------
 
@@ -682,6 +713,16 @@ def main(outdir: str) -> None:
         f"{outdir}/fig6a-consensus_midextremes.pdf",
         history_2D,
     )
+
+    # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig6a-midextremes/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for j, i in enumerate(range(0, len(history_2D), 2)):
+        plot_trace_2D(
+            f"{roundir}/fig6a-midextremes_round_{j:03d}.png",
+            history_2D[: i + 1],
+        )
 
     # --------------------------------------------------------------------------
     # ~ Fig. 6b - with flooding
@@ -701,7 +742,7 @@ def main(outdir: str) -> None:
     # --------------------------------------------------------------------------
 
     # --------------------------------------------------------------------------
-    # ~ Fig. 6a - without flooding
+    # ~ Fig. 6c - without flooding
     history_2D: list[list[float]] = consensus(
         graph_approachextreme,
         graphs_sequence,
@@ -713,7 +754,7 @@ def main(outdir: str) -> None:
     )
 
     # --------------------------------------------------------------------------
-    # ~ Fig. 6b - with flooding
+    # ~ Fig. 6d - with flooding
     history_2D: list[list[float]] = consensus(
         graph_approachextreme,
         graphs_sequence,
@@ -731,4 +772,5 @@ def main(outdir: str) -> None:
 if __name__ == "__main__":
     main(
         pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[1]}",
+        pathlib.Path(__file__).parent.resolve() / f"../{sys.argv[2]}",
     )

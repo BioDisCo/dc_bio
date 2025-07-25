@@ -14,6 +14,7 @@ FIGURES := \
 	$(OUTDIR-FIGURES)/fig8c-mis_final.pdf
 
 VIDEOS := \
+	$(OUTDIR-VIDEOS)/consensus-midextremes_video.mp4 \
 	$(OUTDIR-VIDEOS)/mis_video.mp4 \
 	$(OUTDIR-VIDEOS)/differential_evolution.mp4 \
 	$(OUTDIR-VIDEOS)/particle_swarm.mp4 \
@@ -53,9 +54,9 @@ $(OUTDIR-FIGURES)/fig4b-differential_evolution.pdf: src/differential_evolution.p
 $(OUTDIR-FIGURES)/fig4d-particle_swarm.pdf: src/particle_swarm.py | $(OUTDIR-FIGURES) $(OUTDIR-VIDEOS)
 	python3 src/particle_swarm.py $(OUTDIR-FIGURES) $(OUTDIR-VIDEOS)
 
-$(OUTDIR-FIGURES)/fig5b-consensus_mean.pdf: src/consensus.py
+$(OUTDIR-FIGURES)/fig5b-consensus_mean.pdf: src/consensus.py | $(OUTDIR-FIGURES) $(OUTDIR-VIDEOS)
 	mkdir -p $(OUTDIR-FIGURES)
-	python3 src/consensus.py $(OUTDIR-FIGURES)
+	python3 src/consensus.py $(OUTDIR-FIGURES) $(OUTDIR-VIDEOS)
 
 $(OUTDIR-FIGURES)/fig7a-crn-abc-deterministic.pdf: src/chemical_reaction_network.py
 	mkdir -p $(OUTDIR-FIGURES)
@@ -67,6 +68,9 @@ $(OUTDIR-FIGURES)/fig8c-mis_final.pdf: src/maximal_independent_set.py | $(OUTDIR
 # ==============================================================================
 # VIDEOS
 # ==============================================================================
+#
+$(OUTDIR-VIDEOS)/consensus-midextremes_video.mp4: $(OUTDIR-FIGURES)/fig5b-consensus_mean.pdf | $(OUTDIR-VIDEOS)
+	ffmpeg -framerate 2 -i $(OUTDIR-VIDEOS)/fig6a-midextremes/fig6a-midextremes_round_%03d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -pix_fmt yuv420p $@
 
 $(OUTDIR-VIDEOS)/mis_video.mp4: $(OUTDIR-FIGURES)/fig8c-mis_final.pdf | $(OUTDIR-VIDEOS)
 	ffmpeg -framerate 2 -i $(OUTDIR-VIDEOS)/fig8-mis-rounds/fig8-mis_round_%03d.png -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" -c:v libx264 -pix_fmt yuv420p $(OUTDIR-VIDEOS)/mis_video.mp4
