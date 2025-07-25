@@ -11,6 +11,7 @@ import sys
 from typing import Callable
 
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MaxNLocator
 import networkx as nx
 import numpy as np
 from scipy.spatial.distance import pdist, squareform
@@ -415,6 +416,7 @@ def plot_trace_1D(fname: str, history: list[list[float]]) -> None:
         alpha=0.6,
     )
     plt.grid()
+    plt.gca().xaxis.set_major_locator(MaxNLocator(integer=True))  # Force integer ticks
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
     plt.xlabel("Round", fontsize=16)
