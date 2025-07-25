@@ -467,6 +467,7 @@ def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
     plt.xlabel("x", fontsize=16)
     plt.ylabel("y", fontsize=16)
     plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
+    plt.close()
 
 
 def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
@@ -718,9 +719,9 @@ def main(outdir: str, videodir: str) -> None:
     # ~ Plot for videos
     roundir: str = f"{videodir}/fig6a-midextremes/"
     pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
-    for j, i in enumerate(range(0, len(history_2D), 2)):
+    for j, i in enumerate(range(0, len(history_2D), 1)):
         plot_trace_2D(
-            f"{roundir}/fig6a-midextremes_round_{j:03d}.png",
+            f"{roundir}/round_{j:03d}.png",
             history_2D[: i + 1],
         )
 
@@ -736,6 +737,16 @@ def main(outdir: str, videodir: str) -> None:
         f"{outdir}/fig6b-consensus_midextremes_propagate.pdf",
         history_2D,
     )
+
+    # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig6b-midextremes_propagate/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for j, i in enumerate(range(0, len(history_2D), 1)):
+        plot_trace_2D(
+            f"{roundir}/round_{j:03d}.png",
+            history_2D[: i + 1],
+        )
 
     # --------------------------------------------------------------------------
     # Figure 6[c/d] - ApproachExtreme algorithm
@@ -754,6 +765,16 @@ def main(outdir: str, videodir: str) -> None:
     )
 
     # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig6c-approachextreme/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for j, i in enumerate(range(0, len(history_2D), 1)):
+        plot_trace_2D(
+            f"{roundir}/round_{j:03d}.png",
+            history_2D[: i + 1],
+        )
+
+    # --------------------------------------------------------------------------
     # ~ Fig. 6d - with flooding
     history_2D: list[list[float]] = consensus(
         graph_approachextreme,
@@ -765,6 +786,16 @@ def main(outdir: str, videodir: str) -> None:
         f"{outdir}/fig6d-consensus_approachextreme_propagate.pdf",
         history_2D,
     )
+
+    # --------------------------------------------------------------------------
+    # ~ Plot for videos
+    roundir: str = f"{videodir}/fig6d-approachextreme_propagate/"
+    pathlib.Path(roundir).mkdir(parents=True, exist_ok=True)
+    for j, i in enumerate(range(0, len(history_2D), 1)):
+        plot_trace_2D(
+            f"{roundir}/round_{j:03d}.png",
+            history_2D[: i + 1],
+        )
 
 
 # ------------------------------------------------------------------------------
