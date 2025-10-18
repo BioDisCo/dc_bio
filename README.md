@@ -6,20 +6,11 @@ Repository containing all scripts and demo notebooks associated with the submitt
 
 ## Requirements
 
-Python 3 requirements are described in `requirements.txt`
-```text
-numpy
-networkx
-scipy
-mobspy
-jupyterlab
-ipykernel
-ipywidgets
-```
+Python 3 requirements are listed in `requirements.txt`.
 A virtual Python 3 environment with all dependencies can be installed with:
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -34,7 +25,7 @@ It can also be executed online (*without any installation*), using *Binder* [![B
 
 ## Figures and Videos
 
-Use `Make` to generate all figures and supplementary videos.
+Use `make` to generate all figures and supplementary videos.
 
 >***Remarks:*** Generated figures may differ from the paper ones.
 Indeed, the scripts heavily rely on `numpy.random` and `random` packages.
@@ -47,7 +38,7 @@ While, we define fixed seeds for everything, the behaviors of these pseudo-rando
 *Python 3* scripts generating the associated paper figures are stored in `src`.
 All figures can be generated using:
 ```bash
-Make figures
+make figures
 ```
 Figures will be generated in the `out-figures` directory.
 
@@ -56,6 +47,6 @@ Figures will be generated in the `out-figures` directory.
 `ffmeg` is required to generated the supplementary videos.
 They can be generated using:
 ```bash
-Make videos
+make videos
 ```
 Videos will be generated in the `out-videos` directory.
