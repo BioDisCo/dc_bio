@@ -149,7 +149,7 @@ def plot_graph(
     nx.draw_networkx_edges(G, pos, edge_color="black")
     plt.axis("off")
     plt.savefig(
-        fname, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=300
+        fname, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=600
     )
 
 

@@ -159,7 +159,7 @@ def plot_abc(
     plt.legend(frameon=False, loc=(0.8, 0.7))
     plt.ylabel("count/volume" if mode == "deterministic" else "count")
     plt.xlabel("time")
-    plt.savefig(outfile, bbox_inches="tight", transparent=True, pad_inches=0.01)
+    plt.savefig(outfile, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=600,)
 
 
 def plot_mutual_annihilation(
@@ -203,6 +203,7 @@ def plot_mutual_annihilation(
         bbox_inches="tight",
         transparent=True,
         pad_inches=0.01,
+        dpi=600,
     )
 
 

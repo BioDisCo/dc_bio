@@ -421,7 +421,7 @@ def plot_trace_1D(fname: str, history: list[list[float]]) -> None:
     plt.yticks(fontsize=12)
     plt.xlabel("Round", fontsize=16)
     plt.ylabel("Value", fontsize=16)
-    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
+    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=600,)
 
 
 def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
@@ -468,7 +468,7 @@ def plot_trace_2D(fname: str, history: list[list[float]]) -> None:
     plt.yticks(fontsize=12)
     plt.xlabel("x", fontsize=16)
     plt.ylabel("y", fontsize=16)
-    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
+    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=600,)
     plt.close()
 
 
@@ -494,7 +494,7 @@ def plot_rate_1D(fname: str, history: list[list[float]]) -> None:
     plt.yticks(fontsize=12)
     plt.xlabel("Round", fontsize=16)
     plt.ylabel("Rate", fontsize=16)
-    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01)
+    plt.savefig(fname, bbox_inches="tight", transparent=True, pad_inches=0.01, dpi=600,)
 
 
 def build_psi_graph(n: int, i: int) -> nx.DiGraph:

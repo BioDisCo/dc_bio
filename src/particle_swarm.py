@@ -172,6 +172,7 @@ def plot(  # noqa: PLR0913
             bbox_inches="tight",
             transparent=True,
             pad_inches=0,
+            dpi=600,
         )
     if display:
         # ~ Display
